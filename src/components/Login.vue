@@ -21,6 +21,17 @@
 
         <!-- 公司信息 -->
         <el-dialog title="企业列表" :visible.sync="dialogTableVisible" width="70%">
+            <el-form ref="queryForm" :model="queryForm" :inline="true">
+                <el-form-item label="企业编号">
+                    <el-input v-model="queryForm.companyNum" placeholder="请输入内容"></el-input>
+                </el-form-item>
+                 <el-form-item label="企业简称">
+                    <el-input v-model="queryForm.shortName" placeholder="请输入内容"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="searchCompany">查询</el-button>
+                </el-form-item>
+            </el-form>
             <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @row-click="singleElection" highlight-current-row height="350" border>
                 <el-table-column type="index" label="序号" width="50"></el-table-column>
                 <el-table-column label="选择" width="50">
@@ -62,7 +73,11 @@ export default {
                 username: [ { required: true, message: '请输入用户名' }],
                 password: [ { required: true, message: '请输入密码' } ]
             },
-            tableData:[],
+            queryForm: {
+                companyNum: '',
+                shortName:''
+            },
+            tableData: [],
             dialogTableVisible: false,
             currentRow: {}, // 当前选择的行
             radio: '', // 控制单选
@@ -101,7 +116,15 @@ export default {
             // console.log(`该行的编号为${row.companyNum}`)
         },
         showDataPanel() {
+            // window.open('../dataPanel.html', '_parent') // 跳转至数据面板
+            this.$router.push('/home')
+        },
+        async searchCompany() { // 搜索公司
+            const { data: companyResult } = await this.$http.get('/company/searchCompany', { params: this.queryForm })
 
+            if (+companyResult.code === 0) {
+                this.tableData = companyResult.data
+            }
         },
         handleSizeChange(val){
             this.currentPage = 1
@@ -123,15 +146,6 @@ export default {
     .login_box {
         width: 450px;
         height: 300px;
-        background-color: #fff;
-        border-radius: 3px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .company_box {
         background-color: #fff;
         border-radius: 3px;
         position: absolute;

@@ -42,7 +42,7 @@ export default {
     data() {
         return {
             menuList: [],
-            isCollapse: false,
+            isCollapse: true,
             userInfo: {
                 username: '',
                 userId: 0,
