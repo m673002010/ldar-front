@@ -1,30 +1,51 @@
 <template>
     <div class="login_container">
+        <!-- 登录表单区域 -->
         <div class="login_box">
             <div class="avatar_box">
                 <img src="../assets/logo.png" alt="">
-                <!-- 登录表单区域 -->
             </div>
-            <div >
-                <el-form v-if="showCompany" ref="loginFormRef" :rules="loginFormRules" :model='loginForm' class="login_form">
-                    <el-form-item prop="username">
-                        <el-input v-model="loginForm.username" prefix-icon="el-icon-user"></el-input>
-                    </el-form-item>
-                    <el-form-item prop="password">
-                        <el-input v-model="loginForm.password" prefix-icon="el-icon-key" type="password"></el-input>
-                    </el-form-item>
-                    <el-form-item class="btns">
-                        <el-button type="primary" @click="login">确定</el-button>
-                        <el-button type="info" @click="resetLoginForm">重置</el-button>
-                    </el-form-item>
-                </el-form>
-                <el-table v-else :data="tableData" height="250" border style="width: 100%">
-                    <el-table-column prop="date" label="日期" width="180"></el-table-column>
-                    <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-                    <el-table-column prop="address" label="地址"></el-table-column>
-                </el-table>
-            </div>
+            <el-form ref="loginFormRef" :rules="loginFormRules" :model='loginForm' class="login_form">
+                <el-form-item prop="username">
+                    <el-input v-model="loginForm.username" prefix-icon="el-icon-user"></el-input>
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input v-model="loginForm.password" prefix-icon="el-icon-key" type="password"></el-input>
+                </el-form-item>
+                <el-form-item class="btns">
+                    <el-button type="primary" @click="login">确定</el-button>
+                    <el-button type="info" @click="resetLoginForm">重置</el-button>
+                </el-form-item>
+            </el-form>
         </div>
+
+        <!-- 公司信息 -->
+        <el-dialog title="企业列表" :visible.sync="dialogTableVisible" width="70%">
+            <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @row-click="singleElection" highlight-current-row height="350" border>
+                <el-table-column type="index" label="序号" width="50"></el-table-column>
+                <el-table-column label="选择" width="50">
+                    <template slot-scope="scope">
+                        <el-radio class="radio" v-model="radio" :label="scope.row.companyNum">{{&nbsp;}}</el-radio>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="companyNum" label="企业编号" width="100"></el-table-column>
+                <el-table-column prop="fullName" label="企业全称" width="280"></el-table-column>
+                <el-table-column prop="shortName" label="企业简称" width="180"></el-table-column>
+                <el-table-column prop="province" label="省" width="180"></el-table-column>
+                <el-table-column prop="city" label="市" width="180"></el-table-column>
+            </el-table>
+            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" 
+                :current-page="currentPage" 
+                :page-sizes="[1, 5, 10, 20]" 
+                :page-size="pageSize" 
+                layout="total, sizes, prev, pager, next, jumper" 
+                :total="tableData.length">
+            </el-pagination>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogTableVisible = false">取 消</el-button>
+                <el-button type="primary" @click="showDataPanel">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -41,7 +62,13 @@ export default {
                 username: [ { required: true, message: '请输入用户名' }],
                 password: [ { required: true, message: '请输入密码' } ]
             },
-            showCompany: false,
+            tableData:[],
+            dialogTableVisible: false,
+            currentRow: {}, // 当前选择的行
+            radio: '', // 控制单选
+            currentPage: 1, // 当前页码
+            total: 0, // 总条数
+            pageSize: 5 // 每页的数据条数
         }
     },
     methods: {
@@ -52,13 +79,36 @@ export default {
             this.$refs.loginFormRef.validate(async (value) => {
                 const { data: result } = await this.$http.post('/user/login', this.loginForm)
                 if (+result.code === 0) {
-                    this.$message.success('登录成功')
+                    // this.$message.success('登录成功')
                     window.sessionStorage.setItem('token', result.data.token)
-                    this.$router.push('/home')
+
+                    const { data: companyResult } = await this.$http.get('/company/companyInfo')
+                    if (+companyResult.code === 0) {
+                        this.tableData = companyResult.data
+                        this.dialogTableVisible = true
+                    }
+
+                    // this.$router.push('/home')
                 }
                 else this.$message.error('登录失败')
             })
-            this.$refs.loginFormRef.resetFields()
+            // this.$refs.loginFormRef.resetFields()
+        },
+        singleElection(row) {
+            this.currentRow = row
+            this.radio = row.companyNum
+            // console.log(this.currentRow)
+            // console.log(`该行的编号为${row.companyNum}`)
+        },
+        showDataPanel() {
+
+        },
+        handleSizeChange(val){
+            this.currentPage = 1
+            this.pageSize = val
+        },
+        handleCurrentChange(val){
+            this.currentPage = val
         }
     },
 }
@@ -73,6 +123,15 @@ export default {
     .login_box {
         width: 450px;
         height: 300px;
+        background-color: #fff;
+        border-radius: 3px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .company_box {
         background-color: #fff;
         border-radius: 3px;
         position: absolute;
