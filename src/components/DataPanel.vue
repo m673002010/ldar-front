@@ -24,13 +24,17 @@
 		</div>
 
 		<div class="middle">
-			<div id="annual" class="middle-item">
-				<table>
-					
-				</table>
+			<div id="annual" class="middle-item" style="width: 550px">
+				<el-table :data="tableData" border style="width: 100%" :cell-style="{padding: '0', height: '30px'}">
+					<el-table-column prop="category" label="2022"></el-table-column>
+					<el-table-column prop="first" label="一季度"></el-table-column>
+					<el-table-column prop="second" label="二季度"></el-table-column>
+					<el-table-column prop="third" label="三季度"></el-table-column>
+					<el-table-column prop="fourth" label="四季度"></el-table-column>
+				</el-table>
 			</div>
-			<div id="emission" class="middle-item"></div>
-			<div id="picture" class="middle-item"></div>
+			<div id="emission" class="middle-item" style="width: 550px"></div>
+			<div id="picture" class="middle-item" style="width: 250px"></div>
 		</div>
 
 		<div class="bottom">
@@ -49,11 +53,11 @@ export default {
 		return {
 			tableData:[
 				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
-				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
-				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
-				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
-				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
-				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' }
+				{ category: '实测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '泄漏点数', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '维修前排放量', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '维修后排放量', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '减排量', first: '1542', second: '10908', third: '16025', fourth: '16025' }
 			]
 		}
 	},
@@ -68,11 +72,14 @@ export default {
 			const myChart = echarts.init(document.getElementById('emission'))
 			// 绘制图表
 			myChart.setOption({
-				// title: {
-				// 	text: '排放量',
-				// 	left: 'center'
-				// },
-				legend: {},
+				title: {
+					text: '排放量',
+					left: 'center'
+				},
+				legend: {
+					orient: 'vertical',
+					left: 'right'
+				},
 				tooltip: {},
 				dataset: {
 					source: [
@@ -207,7 +214,7 @@ export default {
 	.middle-item {
 		border-radius: 10px;
 		box-shadow: 0 0 10px 2px #bdcee0;
-		width: 450px;
+		// width: 450px;
 		height: 100%;
 		background-color: white;
 	}
