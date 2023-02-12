@@ -1,23 +1,23 @@
 <template>
     <div class="panel">
 		<div class="top">
-			<div class="top-item"></div>
-			<div class="top-item"></div>
-			<div class="top-item"></div>
-			<div class="top-item"></div>
-			<div class="top-item"></div>
+			<div id="totalPoint" class="top-item">12345</div>
+			<div id="staticPoint" class="top-item">12345</div>
+			<div id="dynamicPoint" class="top-item">12345</div>
+			<div id="reachablePoint" class="top-item">12345</div>
+			<div id="unreachablePoint" class="top-item">12345</div>
 		</div>
 
 		<div class="middle">
-			<div class="middle-item"></div>
-			<div class="middle-item"></div>
-			<div class="middle-item"></div>
+			<div id="annual" class="middle-item"></div>
+			<div id="emission" class="middle-item"></div>
+			<div id="picture" class="middle-item"></div>
 		</div>
 
 		<div class="bottom">
-			<div id="main" class="bottom-item"></div>
-			<div class="bottom-item"></div>
-			<div class="bottom-item"></div>
+			<div id="seal" class="bottom-item"></div>
+			<div id="component" class="bottom-item"></div>
+			<div id="law" class="bottom-item"></div>
 		</div>
   	</div>
 </template>
@@ -25,38 +25,108 @@
 <script>
 import * as echarts from 'echarts'
 export default {
-	name: 'HelloWorld',
+	name: 'DataPanel',
 	data () {
 		return {
 			msg: 'Welcome to Your Vue.js App'
 		}
 	},
 	mounted() {
-		this.aa()
+		this.emission()
+		this.seal()
+		this.component()
 	},
 	methods: {
-		aa(){
+		emission(){
 			// 基于准备好的dom，初始化echarts实例
-			var myChart = echarts.init(document.getElementById('main'));
+			const myChart = echarts.init(document.getElementById('emission'))
 			// 绘制图表
 			myChart.setOption({
-				title: {
-					text: 'ECharts 入门示例'
-				},
+				legend: {},
 				tooltip: {},
-				xAxis: {
-					data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+				dataset: {
+					source: [
+						['product', '维修前排放量', '维修后排放量', '减排量'],
+						['一季度', 43.3, 85.8, 93.7],
+						['二季度', 83.1, 73.4, 55.1],
+						['三季度', 86.4, 65.2, 82.5],
+						['四季度', 72.4, 53.9, 39.1]
+					]
 				},
+				xAxis: { type: 'category' },
 				yAxis: {},
-				series: [
-					{
-						name: '销量',
-						type: 'bar',
-						data: [5, 20, 36, 10, 10, 20]
+				series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+			})
+		},
+		component(){
+			const myChart = echarts.init(document.getElementById('component'))
+			myChart.setOption({
+				title: {
+					text: '组件分布类型',
+					left: 'center'
+				},
+				tooltip: {
+					trigger: 'item'
+				},
+				legend: {
+					orient: 'vertical',
+					left: 'left'
+				},
+				series: [{
+					type: 'pie',
+					radius: '50%',
+					data: [
+						{ value: 1048, name: '开口线管' },
+						{ value: 735, name: '泵' },
+						{ value: 735, name: '搅拌器' },
+						{ value: 1048, name: '连接件' },
+						{ value: 735, name: '取样连接系统' },
+						{ value: 735, name: '法兰' },
+						{ value: 1048, name: '泄压设备' },
+						{ value: 735, name: '阀门' }
+					],
+					emphasis: {
+						itemStyle: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
 					}
-				]
-			});
-		
+					
+				}]
+			})
+		},
+		seal(){
+			const myChart = echarts.init(document.getElementById('seal'))
+			myChart.setOption({
+				title: {
+					text: '密封点类型',
+					left: 'center'
+				},
+				tooltip: {
+					trigger: 'item'
+				},
+				legend: {
+					orient: 'vertical',
+					left: 'left'
+				},
+				series: [{
+					type: 'pie',
+					radius: '50%',
+					data: [
+						{ value: 1048, name: '动密封' },
+						{ value: 735, name: '静密封' }
+					],
+					emphasis: {
+						itemStyle: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+					
+				}]
+			})
 		}
 	},
 }
