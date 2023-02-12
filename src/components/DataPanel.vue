@@ -1,15 +1,34 @@
 <template>
     <div class="panel">
 		<div class="top">
-			<div id="totalPoint" class="top-item">12345</div>
-			<div id="staticPoint" class="top-item">12345</div>
-			<div id="dynamicPoint" class="top-item">12345</div>
-			<div id="reachablePoint" class="top-item">12345</div>
-			<div id="unreachablePoint" class="top-item">12345</div>
+			<div id="totalPoint" class="top-item">
+				<div>总点数</div>
+				<div class="points"><span>12345</span></div>
+			</div>
+			<div id="staticPoint" class="top-item">
+				<div>静密封点数</div>
+				<div class="points"><span>12345</span></div>
+			</div>
+			<div id="dynamicPoint" class="top-item">
+				<div>动密封点数</div>
+				<div class="points"><span>12345</span></div>
+			</div>
+			<div id="reachablePoint" class="top-item">
+				<div>可达点数</div>
+				<div class="points"><span>12345</span></div>
+			</div>
+			<div id="unreachablePoint" class="top-item">
+				<div>不可达点数</div>
+				<div class="points"><span>12345</span></div>
+			</div>
 		</div>
 
 		<div class="middle">
-			<div id="annual" class="middle-item"></div>
+			<div id="annual" class="middle-item">
+				<table>
+					
+				</table>
+			</div>
 			<div id="emission" class="middle-item"></div>
 			<div id="picture" class="middle-item"></div>
 		</div>
@@ -28,7 +47,14 @@ export default {
 	name: 'DataPanel',
 	data () {
 		return {
-			msg: 'Welcome to Your Vue.js App'
+			tableData:[
+				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
+				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' }
+			]
 		}
 	},
 	mounted() {
@@ -42,6 +68,10 @@ export default {
 			const myChart = echarts.init(document.getElementById('emission'))
 			// 绘制图表
 			myChart.setOption({
+				// title: {
+				// 	text: '排放量',
+				// 	left: 'center'
+				// },
 				legend: {},
 				tooltip: {},
 				dataset: {
@@ -170,7 +200,8 @@ export default {
 		box-shadow: 0 0 10px 2px #bdcee0;
 		width: 250px;
 		height: 100%;
-		background-color: white;
+		background-color: #81befc;
+		color: white;
 	}
 
 	.middle-item {
@@ -189,4 +220,8 @@ export default {
 		background-color: white;
 	}
 
+	.points {
+		text-align: center;
+		font-size: 20px;
+	}
 </style>
