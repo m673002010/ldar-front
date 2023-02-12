@@ -25,7 +25,8 @@
 
 		<div class="middle">
 			<div id="annual" class="middle-item" style="width: 550px">
-				<el-table :data="tableData" border style="width: 100%" :cell-style="{padding: '0', height: '30px'}">
+				<div style="text-align: center; font-size: 18px; font-weight: 700;"><span>年度检测记录</span></div>
+				<el-table :data="tableData" border style="width: 100%" :cell-style="{padding: '0', height: '25px'}">
 					<el-table-column prop="category" label="2022"></el-table-column>
 					<el-table-column prop="first" label="一季度"></el-table-column>
 					<el-table-column prop="second" label="二季度"></el-table-column>
