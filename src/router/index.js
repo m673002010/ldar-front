@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import DataPanel from '../components/DataPanel.vue'
+import Parent from '../components/Parent.vue'
 import Users from '../components/user/Users.vue'
 import Rights from '../components/permission/Rights.vue'
 import Roles from '../components/permission/Roles.vue'
@@ -18,6 +19,7 @@ const routes = [
 		redirect: '/DataPanel',
 		children: [
 			{ path: '/DataPanel', component: DataPanel },
+			{ path: '/Parent', component: Parent },
 			{ path: '/users', component: Users },
 			{ path: '/rights', component: Rights },
 			{ path: '/roles', component: Roles }

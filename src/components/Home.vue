@@ -2,7 +2,7 @@
     <el-container class="home-container">
         <el-header>
             <div>
-                <span>cms后台管理系统</span>
+                <span>ldar综合管理系统</span>
             </div>
             <div>
                 用户:<span>{{ userInfo.username }}</span>

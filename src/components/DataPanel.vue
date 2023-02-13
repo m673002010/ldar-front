@@ -35,33 +35,63 @@
 				</el-table>
 			</div>
 			<div id="emission" class="middle-item" style="width: 550px"></div>
-			<div id="picture" class="middle-item" style="width: 250px"></div>
+			<div id="picture" class="middle-item" style="width: 250px">
+				<el-carousel>
+					<el-carousel-item v-for="(item, index) in picList" :key="index">
+						<img :src="item" width="200px" height="250px">
+					</el-carousel-item>
+				</el-carousel>
+			</div>
 		</div>
 
 		<div class="bottom">
 			<div id="seal" class="bottom-item"></div>
 			<div id="component" class="bottom-item"></div>
-			<div id="law" class="bottom-item"></div>
+			<div id="law" class="bottom-item">
+				<div style="text-align: center; font-size: 18px; font-weight: 700;"><span>法律法规</span></div>
+				<div>
+					<animateList :List="pdfList"></animateList>
+				</div>
+			</div>
 		</div>
   	</div>
 </template>
 
 <script>
 import * as echarts from 'echarts'
+import animateList from './Children.vue' // 引入子组件路径
 export default {
 	name: 'DataPanel',
 	data () {
 		return {
-			tableData:[
+			tableData: [
 				{ category: '应测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
 				{ category: '实测', first: '1542', second: '10908', third: '16025', fourth: '16025' },
 				{ category: '泄漏点数', first: '1542', second: '10908', third: '16025', fourth: '16025' },
 				{ category: '维修前排放量', first: '1542', second: '10908', third: '16025', fourth: '16025' },
 				{ category: '维修后排放量', first: '1542', second: '10908', third: '16025', fourth: '16025' },
 				{ category: '减排量', first: '1542', second: '10908', third: '16025', fourth: '16025' }
+			],
+			picList: [
+			 	'http://175.178.8.213:3002/picture/P1.jpg',
+				'http://175.178.8.213:3002/picture/P2.jpg',
+				'http://175.178.8.213:3002/picture/P3.jpg',
+				'http://175.178.8.213:3002/picture/P4.jpg',
+				'http://175.178.8.213:3002/picture/P5.jpg'
+			],
+			pdfList: [
+				'http://175.178.8.213:3002/pdf/广东省LDAR实施的技术要求.pdf',
+				'http://175.178.8.213:3002/pdf/江苏省泄漏检测与修复(LDAR)实施技术指南.pdf',
+				'http://175.178.8.213:3002/pdf/上海市设备泄漏挥发性有机物排放控制技术规程.pdf',
+				'http://175.178.8.213:3002/pdf/石化行业泄漏检测与修复工作指南.pdf',
+				'http://175.178.8.213:3002/pdf/石化行业VOCs污染源排查工作指南.pdf',
+				'http://175.178.8.213:3002/pdf/石油化学工业污染物排放标准.pdf'
 			]
 		}
 	},
+	components:{
+        animateList
+    },
 	mounted() {
 		this.emission()
 		this.seal()
@@ -166,7 +196,7 @@ export default {
 				}]
 			})
 		}
-	},
+	}
 }
 </script>
 
