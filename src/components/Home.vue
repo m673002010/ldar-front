@@ -2,42 +2,25 @@
     <el-container class="home-container">
         <el-header>
             <div>
-                <span>ldar综合管理系统</span>
+                <span>LDAR综合管理系统</span>
+            </div>
+            <div>
+                <el-button @click="handleClick" type="primary">{{ shift ? '切换为后台管理' : '切换为数据面板' }}</el-button>
             </div>
             <div>
                 用户:<span>{{ userInfo.username }}</span>
                 <el-button type="info" @click="logout">退出</el-button>
             </div>
         </el-header>
-        <el-container>
-            <el-aside :width="isCollapse ? '64px' : '200px'">
-                <div class="toggle-button" @click="toggleCollapse">|||</div>
-                <el-menu background-color="#333744" text-color="#fff" active-text-color="#409bff" unique-opened
-                :router="true" :default-active="$route.path" :collapse="isCollapse" :collapse-transition="false">
-                    <!-- 一级菜单 -->
-                    <el-submenu :index="item.rightId + ''" v-for="item in menuList" :key="item.rightId">
-                        <template slot="title">
-                            <i class="el-icon-menu"></i>
-                            <span>{{item.authName}}</span>
-                        </template>
-                        <!-- 二级菜单 -->
-                        <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.rightId">
-                            <template slot="title">
-                                <i class="el-icon-menu"></i>
-                                <span>{{subItem.authName}}</span>
-                            </template>
-                        </el-menu-item>
-                    </el-submenu>
-                </el-menu>
-            </el-aside>
-            <el-main>
-                <router-view></router-view>
-            </el-main>
-        </el-container>
+        <dataPanel v-if="shift"></dataPanel>
+        <backStage v-else :menuList="menuList"></backStage>
     </el-container>
 </template>
 
 <script>
+import dataPanel from './DataPanel.vue' // 数据面板
+import backStage from './BackStage.vue' // 后台管理系统
+
 export default {
     data() {
         return {
@@ -46,10 +29,15 @@ export default {
             userInfo: {
                 username: '',
                 userId: 0,
-            }
+            },
+            activeName: "dp",
+            shift: true
         }
     },
     methods: {
+        handleClick() {
+            this.shift = !this.shift
+        },
         logout() {
             window.sessionStorage.clear()
             this.$router.push('/login')
@@ -62,13 +50,14 @@ export default {
                 this.userInfo.username = userInfo.username
                 this.userInfo.userId = userInfo.userId
             } else this.$message.error('获取用户信息失败')
-        },
-        toggleCollapse () {
-            this.isCollapse = !this.isCollapse
         }
     },
     created() {
         this.getUserInfo()
+    },
+    components:{
+        backStage,
+        dataPanel
     }
 }
 </script>
@@ -85,26 +74,5 @@ export default {
         align-items: center;
         color: #fff;
         font-size: 20px;
-    }
-    
-    .el-aside {
-        background-color: #333744;
-        .el-menu {
-            border-right: none;
-        }
-    }
-
-    .el-main {
-        background-color: #edeaf1;
-    }
-
-    .toggle-button {
-        background-color: #4a5064;
-        font-size: 10px;
-        line-height: 24px;
-        color:#fff;
-        text-align: center;
-        letter-spacing: 0.2em;
-        cursor: pointer;
     }
 </style>

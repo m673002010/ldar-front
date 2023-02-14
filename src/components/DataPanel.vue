@@ -59,7 +59,7 @@
 
 <script>
 import * as echarts from 'echarts'
-import animateList from './Children.vue' // 引入子组件路径
+import animateList from './AnimateList.vue' // 引入子组件路径
 export default {
 	name: 'DataPanel',
 	data () {
