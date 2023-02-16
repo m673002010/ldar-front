@@ -41,14 +41,24 @@ export default {
 		}
 	},
   	mounted () {
-		this.$store.commit('delete_tabs', '/firstPage')
+		this.$store.commit('set_openTab', [])
+		console.log('============', this.$store.state.openTab)
+		// this.$store.commit('delete_tabs', '/firstPage')
 		this.$store.commit('add_tabs', { path: '/firstPage', name: '首页' })
 		this.$store.commit('set_active_tab', '首页')
-		this.$router.push('/')
+		this.$router.push({ path: '/' })
   	},
 	computed: {
-		openTab() {
-			return this.$store.state.openTab
+		// openTab() {
+		// 	return this.$store.state.openTab
+		// },
+		openTab: {
+			get() {
+				return this.$store.state.openTab
+			},
+			set(val) {
+				this.$store.commit('set_openTab', val)
+			}
 		},
 		activePath: {
 			get() {
@@ -65,8 +75,6 @@ export default {
 			let flag = false
 			for(let item of this.openTab){
 				// 已经打开的 ，将其置为active
-				// to.path: /roles
-				// to.name: '角色列表'
 				if(item.name === to.name){
 					this.$store.commit('set_active_tab', to.path)
 					flag = true

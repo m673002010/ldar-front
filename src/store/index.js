@@ -42,6 +42,10 @@ export default new Vuex.Store({
         // path: '/role'
         set_active_tab(state, path) {
             this.state.activePath = path
+        },
+
+        set_openTab(state, val) {
+            this.state.openTab = val
         }
     },
     actions: {},
