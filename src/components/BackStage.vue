@@ -33,7 +33,7 @@ export default {
         menuList: {
             type: Array,
             default: []
-        },
+        }
     },
     data() {
         return {

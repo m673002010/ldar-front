@@ -6,6 +6,7 @@ import FirstPage from '../components/FirstPage.vue'
 import Users from '../components/user/Users.vue'
 import Rights from '../components/permission/Rights.vue'
 import Roles from '../components/permission/Roles.vue'
+import UploadComponentLedger from '../components/ledger/UploadComponentLedger.vue'
 
 Vue.use(VueRouter)
 
@@ -20,17 +21,18 @@ const routes = [
 			{ path: '/firstPage', component: FirstPage },
 			{ path: '/users', component: Users },
 			{ path: '/rights', component: Rights },
-			{ path: '/roles', component: Roles }
+			{ path: '/roles', component: Roles },
+			{ path: '/uploadComponentLedger', component: UploadComponentLedger }
 		]
-    },
+    }
 ]
 
 const router = new VueRouter({
-  routes
+  	routes
 })
 
 router.beforeEach((to, from, next) => {
-	if (to.path === '/login') return next();
+	if (to.path === '/login') return next()
 	const tokenStr = window.sessionStorage.getItem('token')
 	if (!tokenStr) return next('/login')
 	next()

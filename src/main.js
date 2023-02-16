@@ -17,11 +17,11 @@ import qs from 'qs'
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     config.headers.Authorization = window.sessionStorage.getItem('token')
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (config.method==='post')
-    {
-      config.data = qs.stringify(config.data)
-    }
+    config.headers['Content-Type'] = 'application/json;charset=utf-8'
+    // if (config.method==='post')
+    // {
+    //   	config.data = qs.stringify(config.data)
+    // }
     return config
 }, function (error) {
 	// 对请求错误做些什么

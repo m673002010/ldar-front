@@ -1,7 +1,12 @@
 <template>
     <div id="animateList">
         <div id="box">
-            <div id="container1" ref="container1" :class="{ anim:animate == true }" @mouseenter="mEnter" @mouseleave="mLeave">
+            <!-- <div id="container1" ref="container1" :class="{ anim:animate == true }" @mouseenter="mEnter" @mouseleave="mLeave">
+                <p v-for='(item, index) in List' :key="index">
+                    <a :href="item">{{ item.split('/')[(item.split('/')).length-1] }}</a>
+                </p>
+            </div> -->
+            <div id="container1" ref="container1" @mouseenter="mEnter" @mouseleave="mLeave">
                 <p v-for='(item, index) in List' :key="index">
                     <a :href="item">{{ item.split('/')[(item.split('/')).length-1] }}</a>
                 </p>
