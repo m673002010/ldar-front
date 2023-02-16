@@ -1,10 +1,10 @@
 <template>
     <div>
-        <el-breadcrumb separator="/">
+        <!-- <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>权限管理</el-breadcrumb-item>
             <el-breadcrumb-item>权限列表</el-breadcrumb-item>
-        </el-breadcrumb>
+        </el-breadcrumb> -->
         <el-card>
             <el-button type="primary" @click="addDialogVisible = true">添加菜单权限</el-button>
             <el-tree :data="rightTree" :props="treeProps" node-key="rightId" :expand-on-click-node="false"

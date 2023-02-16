@@ -11,18 +11,19 @@ import UploadComponentLedger from '../components/ledger/UploadComponentLedger.vu
 Vue.use(VueRouter)
 
 const routes = [
-    { path: '/', redirect: '/home' },
+    { path: '/', redirect: '/home',  },
     { path: '/login', component: Login },
     { 
 		path: '/home', 
-		component: Home, 
+		component: Home,
+		name: '主页',
 		redirect: '/firstPage',
 		children: [
-			{ path: '/firstPage', component: FirstPage },
-			{ path: '/users', component: Users },
-			{ path: '/rights', component: Rights },
-			{ path: '/roles', component: Roles },
-			{ path: '/uploadComponentLedger', component: UploadComponentLedger }
+			{ path: '/firstPage', component: FirstPage, name: '首页' },
+			{ path: '/users', component: Users, name: '用户列表' },
+			{ path: '/rights', component: Rights, name: '权限列表' },
+			{ path: '/roles', component: Roles, name: '角色列表' },
+			{ path: '/uploadComponentLedger', component: UploadComponentLedger, name: '上传组件台账' }
 		]
     }
 ]

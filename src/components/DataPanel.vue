@@ -61,7 +61,7 @@
 import * as echarts from 'echarts'
 import animateList from './AnimateList.vue' // 引入子组件路径
 export default {
-	name: 'DataPanel',
+	name: 'dataPanel',
 	data () {
 		return {
 			tableData: [

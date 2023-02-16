@@ -21,12 +21,15 @@
             </el-menu>
         </el-aside>
         <el-main>
+            <tab></tab>
             <router-view></router-view>
         </el-main>
     </el-container>
 </template>
 
 <script>
+import tab from './Tab.vue' // 选项卡
+
 export default {
     name: "backStage",
     props:{
@@ -45,7 +48,9 @@ export default {
             this.isCollapse = !this.isCollapse
         }
     },
-    created() {
+    created() {},
+    components:{
+        tab
     }
 }
 </script>

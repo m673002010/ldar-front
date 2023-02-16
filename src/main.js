@@ -11,6 +11,9 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://175.178.8.213:3002'
 Vue.prototype.$http = axios
 
+// vuex
+import store from './store'
+
 import qs from 'qs'
 
 // axios拦截器
@@ -41,5 +44,6 @@ Vue.config.productionTip = false
 
 new Vue({
 	router,
+    store,
 	render: h => h(App)
 }).$mount('#app')
