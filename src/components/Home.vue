@@ -2,10 +2,10 @@
     <el-container class="home-container">
         <el-header>
             <div>
-                <span>LDAR综合管理系统</span>
+                <span style="font-size: 30px; font-weight: 1000;">LDAR综合管理系统</span>
             </div>
             <div>
-                <el-button @click="handleClick" type="primary">{{ shift ? '切换为后台管理' : '切换为数据面板' }}</el-button>
+                <el-button @click="handleClick">{{ shift ? '切换为后台管理' : '切换为数据面板' }}</el-button>
             </div>
             <div>
                 用户:<span>{{ userInfo.username }}</span>
@@ -68,7 +68,7 @@ export default {
     }
 
     .el-header {
-        background-color: #373d41;
+        background-color: #3F85ED;
         display: flex;
         justify-content: space-between;
         align-items: center;

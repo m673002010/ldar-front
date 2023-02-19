@@ -4,7 +4,7 @@
 		<el-tab-pane :key="item.name" v-for="item in openTab" :label="item.name" :name="item.path"></el-tab-pane>
 	</el-tabs>
 </template>
- 
+
 <script>
 export default {
 	name: 'tab',
@@ -15,7 +15,6 @@ export default {
 	created() {},
 	methods: {
 		// tab标签点击时，切换相应的路由
-		// this.activePath: /roles
 		tabClick(tab) {
 			this.$router.push({ path: this.activePath })
 		},
@@ -23,10 +22,7 @@ export default {
 		// 移除tab标签
 		tabRemove(targetPath){
 			// 首页不删
-			if(targetPath == '/' || targetPath == '/firstPage'){
-				return
-			}
-
+			if(targetPath == '/firstPage') return
 			this.$store.commit('delete_tabs', targetPath)
 
 			if (this.activePath === targetPath) {
@@ -42,11 +38,11 @@ export default {
 	},
   	mounted () {
 		this.$store.commit('set_openTab', [])
-		console.log('============', this.$store.state.openTab)
+		// console.log('openTab：', this.$store.state.openTab)
 		// this.$store.commit('delete_tabs', '/firstPage')
 		this.$store.commit('add_tabs', { path: '/firstPage', name: '首页' })
-		this.$store.commit('set_active_tab', '首页')
-		this.$router.push({ path: '/' })
+		this.$store.commit('set_active_tab', '/firstPage')
+		this.$router.push({ path: '/firstPage' })
   	},
 	computed: {
 		// openTab() {
@@ -81,17 +77,16 @@ export default {
 					break
 				}
 			}
-	
+
 			// 未打开的，将其放入队列里
 			if(!flag){
 				this.$store.commit('add_tabs', { path: to.path, name: to.name })
 				this.$store.commit('set_active_tab', to.path)
 			}
-	
 		}
   	}
 }
 </script>
- 
+
 <style lang='less' scoped>
 </style>
