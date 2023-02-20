@@ -2,24 +2,19 @@
     <div class="panel">
 		<div class="top">
 			<div id="totalPoint" class="top-item">
-				<div class="word">总点数</div>
-				<div class="points"><span>15317</span></div>
+				<el-progress type="circle" :percentage="100" :stroke-width="10" :format="format"></el-progress>
 			</div>
 			<div id="staticPoint" class="top-item">
-				<div class="word">静密封点数</div>
-				<div class="points"><span>12341</span></div>
+				<el-progress type="circle" :percentage="75" :stroke-width="10" :format="format"></el-progress>
 			</div>
 			<div id="dynamicPoint" class="top-item">
-				<div class="word">动密封点数</div>
-				<div class="points"><span>2976</span></div>
+				<el-progress type="circle" :percentage="100" :stroke-width="10" :format="format"></el-progress>
 			</div>
 			<div id="reachablePoint" class="top-item">
-				<div class="word">可达点数</div>
-				<div class="points"><span>15173</span></div>
+				<el-progress type="circle" :percentage="25" :stroke-width="10" :format="format"></el-progress>
 			</div>
 			<div id="unreachablePoint" class="top-item">
-				<div class="word">不可达点数</div>
-				<div class="points"><span>144</span></div>
+				<el-progress type="circle" :percentage="50" :stroke-width="10" :format="format"></el-progress>
 			</div>
 		</div>
 
@@ -91,14 +86,6 @@ export default {
 				'http://175.178.8.213:3002/pdf/石化行业泄漏检测与修复工作指南.pdf',
 				'http://175.178.8.213:3002/pdf/石化行业VOCs污染源排查工作指南.pdf',
 				'http://175.178.8.213:3002/pdf/石油化学工业污染物排放标准.pdf',
-				// 'http://175.178.8.213:3002/pdf/11111111111111111.pdf',
-				// 'http://175.178.8.213:3002/pdf/22222222222222222.pdf',
-				// 'http://175.178.8.213:3002/pdf/33333333333333333.pdf',
-				// 'http://175.178.8.213:3002/pdf/44444444444444444.pdf',
-				// 'http://175.178.8.213:3002/pdf/55555555555555555.pdf',
-				// 'http://175.178.8.213:3002/pdf/66666666666666666.pdf',
-				// 'http://175.178.8.213:3002/pdf/77777777777777777.pdf',
-				// 'http://175.178.8.213:3002/pdf/88888888888888888.pdf',
 			]
 		}
 	},
@@ -208,6 +195,9 @@ export default {
 					
 				}]
 			})
+		},
+		format (percentage) {
+			return "总点数: 15317"
 		}
 	}
 }
@@ -225,7 +215,7 @@ export default {
 		justify-content: space-around;
 		margin: 10px;
 		width: 100%;
-		height: 50px;
+		height: 125px;
 	}
 
 	.middle {
@@ -247,13 +237,9 @@ export default {
 	}
 
 	.top-item {
-		border-radius: 10px;
-		box-shadow: 0 0 10px 2px #bdcee0;
 		width: 250px;
 		height: 100%;
-		background-color: #91CC75;
-		opacity: 0.75;
-		color: white;
+		text-align:center;
 	}
 
 	.middle-item {
