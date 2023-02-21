@@ -9,6 +9,11 @@ import Users from '../components/user/Users.vue'
 import Rights from '../components/permission/Rights.vue'
 import Roles from '../components/permission/Roles.vue'
 import UploadComponentLedger from '../components/ledger/UploadComponentLedger.vue'
+import UploadPictureLedger from '../components/ledger/UploadPictureLedger.vue'
+import DeleteComponent from '../components/ledger/DeleteComponent.vue'
+import DeviceManagement from '../components/ledger/DeviceManagement.vue'
+import AreaManagement from '../components/ledger/AreaManagement.vue'
+import EquipmentManagement from '../components/ledger/EquipmentManagement.vue'
 
 Vue.use(VueRouter)
 
@@ -26,7 +31,12 @@ const routes = [
 			{ path: '/users', component: Users, name: '用户列表' },
 			{ path: '/rights', component: Rights, name: '权限列表' },
 			{ path: '/roles', component: Roles, name: '角色列表' },
-			{ path: '/uploadComponentLedger', component: UploadComponentLedger, name: '上传组件台账' }
+			{ path: '/uploadComponentLedger', component: UploadComponentLedger, name: '上传组件台账' },
+			{ path: '/uploadPictureLedger', component: UploadPictureLedger, name: '上传图片台账' },
+			{ path: '/deleteComponent', component: DeleteComponent, name: '组件删除' },
+			{ path: '/deviceManagement', component: DeviceManagement, name: '装置管理' },
+			{ path: '/areaManagement', component: AreaManagement, name: '区域管理' },
+			{ path: '/equipmentManagement', component: EquipmentManagement, name: '设备管理' },
 		]
     }
 ]

@@ -32,7 +32,7 @@
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="userDialog = false">取 消</el-button>
-                <el-button type="primary" @click="addUser">确 定</el-button>
+                <el-button type="primary" @click="userDialog = false">确 定</el-button>
             </span>
         </el-dialog>
     </el-container>
@@ -55,6 +55,10 @@ export default {
                 username: '',
                 oldPassword: '',
                 newPassword: ''
+            },
+            userFormRules: {
+                oldPassword: [ { required: true, message: '请输入旧密码' }],
+                newPassword: [ { required: true, message: '请输入新密码' }]
             },
             activeName: "dp",
             shift: true,
