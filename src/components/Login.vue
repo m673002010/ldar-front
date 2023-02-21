@@ -2,8 +2,11 @@
     <div class="login_container">
         <!-- 登录表单区域 -->
         <div class="login_box">
-            <div class="avatar_box">
+            <!-- <div class="avatar_box">
                 <img src="../assets/logo.png" alt="">
+            </div> -->
+            <div style="text-align: center">
+                <span style="font-size: 30px; font-weight: 1000;">LDAR综合管理系统</span>
             </div>
             <el-form ref="loginFormRef" :rules="loginFormRules" :model='loginForm' class="login_form">
                 <el-form-item prop="username">
@@ -139,7 +142,9 @@ export default {
 
 <style lang="less" scoped>
     .login_container {
-        background-color: #3F85ED;
+        // background-color: #3CA993;
+        background-image: url(../assets/natural.jpeg);
+        background-size: cover;
         height: 100%;
     }
 
@@ -154,24 +159,24 @@ export default {
         transform: translate(-50%, -50%);
     }
 
-    .avatar_box {
-        height: 130px;
-        width: 130px;
-        border: 1px solid #eee;
-        border-radius: 50%;
-        padding: 10px;
-        box-shadow: 0 0 10px #ddd;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: #eee;
-        }
-    }
+    // .avatar_box {
+    //     height: 130px;
+    //     width: 130px;
+    //     border: 1px solid #eee;
+    //     border-radius: 50%;
+    //     padding: 10px;
+    //     box-shadow: 0 0 10px #ddd;
+    //     position: absolute;
+    //     left: 50%;
+    //     transform: translate(-50%, -50%);
+    //     background-color: #fff;
+    //     img {
+    //         width: 100%;
+    //         height: 100%;
+    //         border-radius: 50%;
+    //         background-color: #eee;
+    //     }
+    // }
 
     .login_form {
         position: absolute;

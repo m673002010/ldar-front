@@ -8,12 +8,33 @@
                 <el-button @click="handleClick">{{ shift ? '切换为后台管理' : '切换为数据面板' }}</el-button>
             </div>
             <div>
-                用户:<span>{{ userInfo.username }}</span>
+                <el-button type="info" @click="showUserInfo"><i class="el-icon-user-solid"></i></el-button> | 
                 <el-button type="info" @click="logout">退出</el-button>
             </div>
         </el-header>
         <dataPanel v-if="shift"></dataPanel>
         <backStage v-else :menuList="menuList"></backStage>
+
+        <el-dialog
+            title="编辑用户"
+            :visible.sync="userDialog"
+            width="30%" @close="dialogClose('userForm')">
+            <el-form :model="userForm" :rules="userFormRules" ref="userFormRef" label-width="70px">
+                <el-form-item label="用户名" prop="username">
+                    <el-input v-model="userForm.username" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="旧密码" prop="oldPassword">
+                    <el-input v-model="userForm.oldPassword"></el-input>
+                </el-form-item>
+                <el-form-item label="新密码" prop="newPassword">
+                    <el-input v-model="userForm.newPassword"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="userDialog = false">取 消</el-button>
+                <el-button type="primary" @click="addUser">确 定</el-button>
+            </span>
+        </el-dialog>
     </el-container>
 </template>
 
@@ -30,8 +51,14 @@ export default {
                 username: '',
                 userId: 0,
             },
+            userForm: {
+                username: '',
+                oldPassword: '',
+                newPassword: ''
+            },
             activeName: "dp",
-            shift: true
+            shift: true,
+            userDialog: false
         }
     },
     methods: {
@@ -41,6 +68,10 @@ export default {
         logout() {
             window.sessionStorage.clear()
             this.$router.push('/login')
+        },
+        showUserInfo() {
+            this.userDialog = true
+            this.userForm.username = this.userInfo.username
         },
         async getUserInfo() {
             const { data: result } = await this.$http.get('/user/userInfo')
