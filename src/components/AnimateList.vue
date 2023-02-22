@@ -1,0 +1,68 @@
+<template>
+    <div id="animateList">
+        <div id="box">
+            <div id="scrollContainer" @mouseenter="mEnter" @mouseleave="mLeave">
+                <div class="item" v-for='(item, index) in List' :key="index">
+                    <a :href="item" style="text-decoration:none">{{ item.split('/')[(item.split('/')).length-1] }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "animateList",
+        props:{
+            List: {
+                type: Array,
+                default: []
+            },
+        },
+        data() {
+            return {
+                animate: false,
+            }
+        },
+        mounted() {
+            this.timer= setInterval(this.scroll,3000)
+        },
+        methods: {
+            scroll() {
+                let that = this
+                that.animate = !that.animate
+                setTimeout(function () {
+                    that.List.push(that.List[0])
+                    that.List.shift()
+                    that.animate = !that.animate
+                }, 500)
+            },
+            mEnter() {
+                clearInterval(this.timer)
+            },
+            mLeave() {
+                this.timer = setInterval(this.scroll, 3000)
+            },
+        },
+        beforeDestroy() {
+            if (this.timer) clearInterval(this.timer)
+        }
+    }
+</script>
+
+<style scoped>
+    #box{
+        height: 175px;
+        overflow: hidden;
+    }
+
+    #scrollContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #scrollContainer .item {
+        height: 25px;
+    }
+</style>
