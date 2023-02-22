@@ -85,6 +85,7 @@ export default {
                 this.userInfo.username = userInfo.username
                 this.userInfo.userId = userInfo.userId
             } else this.$message.error('获取用户信息失败')
+
         },
         dialogClose (form) { // 关闭对话框
             this.$refs[`${form}Ref`].resetFields()

@@ -35,6 +35,7 @@
 				<el-form-item>
 					<el-button type="primary">查询</el-button>
 					<el-button type="danger" icon="el-icon-delete">删除</el-button>
+
 				</el-form-item>
 			</el-form>
 		
