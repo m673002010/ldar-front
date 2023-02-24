@@ -3,7 +3,7 @@
         <div id="box">
             <div id="scrollContainer" @mouseenter="mEnter" @mouseleave="mLeave">
                 <div class="item" v-for='(item, index) in List' :key="index">
-                    <a :href="item" style="text-decoration:none">{{ item.split('/')[(item.split('/')).length-1] }}</a>
+                    <a :href="item" style="text-decoration:none">{{ (item.split('/')[(item.split('/')).length-1]).split('.')[0] }}</a>
                 </div>
             </div>
         </div>
@@ -66,4 +66,9 @@
     #scrollContainer .item {
         height: 25px;
     }
+
+	a:link {color: #4a5064}     /* 未访问的链接 */
+	a:visited {color: #4a5064}  /* 已访问的链接 */
+	a:hover {color: #4a5064}    /* 当有鼠标悬停在链接上 */
+	a:active {color: #4a5064}   /* 被选择的链接 */
 </style>

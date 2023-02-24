@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <div></div>
+    <div class="box">
+        <div class=left></div>
+        <div class=right></div>
     </div>
 </template>
 
@@ -18,4 +19,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.box {
+    display: flex;
+	flex-direction: column;
+}
+
+.left {
+    
+}
+
+.right {
+    
+}
 </style>

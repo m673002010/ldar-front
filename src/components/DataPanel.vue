@@ -2,19 +2,19 @@
     <div class="panel">
 		<div class="top">
 			<div id="totalPoint" class="top-item">
-				<el-progress type="circle" :percentage="totalPercent" :stroke-width="15" :format="totalFormat"></el-progress>
+				<el-progress type="circle" :percentage="totalPercent" :stroke-width="20" :format="totalFormat"></el-progress>
 			</div>
 			<div id="staticPoint" class="top-item">
-				<el-progress type="circle" :percentage="staticPercent" :stroke-width="15" :format="staticFormat"></el-progress>
+				<el-progress type="circle" :percentage="staticPercent" :stroke-width="20" :format="staticFormat"></el-progress>
 			</div>
 			<div id="dynamicPoint" class="top-item">
-				<el-progress type="circle" :percentage="dynamicPercent" :stroke-width="15" :format="dynamicFormat"></el-progress>
+				<el-progress type="circle" :percentage="dynamicPercent" :stroke-width="20" :format="dynamicFormat"></el-progress>
 			</div>
 			<div id="reachablePoint" class="top-item">
-				<el-progress type="circle" :percentage="reachablePercent" :stroke-width="15" :format="reachableFormat"></el-progress>
+				<el-progress type="circle" :percentage="reachablePercent" :stroke-width="20" :format="reachableFormat"></el-progress>
 			</div>
 			<div id="unreachablePoint" class="top-item">
-				<el-progress type="circle" :percentage="unreachablePercent" :stroke-width="15" :format="unreachableFormat"></el-progress>
+				<el-progress type="circle" :percentage="unreachablePercent" :stroke-width="20" :format="unreachableFormat"></el-progress>
 			</div>
 		</div>
 
@@ -214,11 +214,11 @@ export default {
 			return `不可达点数: ${this.unreachablePoint}`
 		},
 		async increase() {
-			this.totalPercent = this.totalPoint / this.totalPoint * 100
+			this.totalPercent = 100
 			this.staticPercent = this.staticPoint / this.totalPoint * 100
-			this.dynamicPercent = this.dynamicPoint / this.totalPoint * 100
-			this.reachablePercent = this.reachablePoint / this.totalPoint * 100
-			this.unreachablePercent = this.unreachablePoint / this.totalPoint * 100
+			this.dynamicPercent = this.dynamicPoint / this.totalPoint * 100 > 90 ? 90 : this.dynamicPoint / this.totalPoint * 100
+			this.reachablePercent = this.reachablePoint / this.totalPoint * 100 > 90 ? 90 : this.reachablePoint / this.totalPoint * 100
+			this.unreachablePercent = this.unreachablePoint / this.totalPoint * 100 > 90 ? 90 : this.unreachablePoint / this.totalPoint * 100
 			await this.sleep(5000)
 			this.decrease()
 			await this.sleep(1000)
