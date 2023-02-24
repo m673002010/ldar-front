@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <style type="text/css">
+            .content {
+                width: 200px;
+                height: 50px;
+                background-color: gray;
+            }
+            #num {
+                width: 0px;
+                height: inherit;
+                background-color: aquamarine;
+                color: white;
+                transition: width 2s;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <div id = "content" class="content">
+        <div id="num">
+            
+        </div>
+    </div>
+    <script type="text/javascript">
+        var w = parseInt(window.getComputedStyle(content,null).width)
+        var yuanshu = 0
+        const re = 150 // 获取到的数据
+        window.onload = function(){ // 将计算后的过渡时间和宽度计算完赋给绿色容器
+            document.getElementById("num").style.transition = "width " + re /w + "s"
+            document.getElementById("num").style.width = re / w * 100 + "%"
+        }
+        
+        var numAdd = setInterval(numAdd, re / w) // 下面是数字增长的代码，可以不用看了
+        function numAdd(){
+            yuanshu = yuanshu + 1
+            document.getElementById("num").innerText = yuanshu
+            if(yuanshu == re){
+                window.numStop()
+            }
+        }
+        function numStop(){
+            window.clearInterval(numAdd)
+        }
+    </script>
+    </body>
+</html>
