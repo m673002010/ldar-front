@@ -27,7 +27,7 @@
 		<div class="bottom">
 			<div id="annual" class="bottom-item" style="width: 500px">
 				<div style="text-align: center; font-size: 18px; font-weight: 700; color: #4D4D4D"><span>年度检测记录</span></div>
-				<el-table cell-style="text-align:center" :data="tableData" border style="width: 100%; font-size: 10px" :cell-style="{padding: '0', height: '25px'}">
+				<el-table :data="tableData" border style="width: 100%; font-size: 10px" :cell-style="{padding: '0', height: '25px'}">
 					<el-table-column align="center" prop="category" label="2022"></el-table-column>
 					<el-table-column align="center" prop="first" label="一季度"></el-table-column>
 					<el-table-column align="center" prop="second" label="二季度"></el-table-column>
