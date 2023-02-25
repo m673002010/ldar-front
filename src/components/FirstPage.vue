@@ -4,8 +4,8 @@
             <el-card>
                 <div class="left-box">
                     <div class="left-top">
-                        <el-button :type="isAllCycle ? '' : 'primary'" @click="isAllCycle = false">当前周期</el-button>
-                        <el-button :type="isAllCycle ? 'primary' : ''" @click="isAllCycle = true">全部周期</el-button>
+                        <el-button :type="isAllCycle ? '' : 'primary'" @click="clickCurrentCycle">当前周期</el-button>
+                        <el-button :type="isAllCycle ? 'primary' : ''" @click="clickAllCycle">全部周期</el-button>
                     </div>
 
                     <div class="left-center">
@@ -141,13 +141,24 @@ export default {
                     uploadTime: '2022-04-05T17:37:33.57',
                     leakPoint: ''
                 }
-            ]
+            ],
+            current: {
+                device: [ '二甲基苯胺B车间', '甲霜灵车间', '霜霉威装置' ],
+                data: [ 1, 3, 1 ]
+            },
+            all: {
+                device: [ '2,6-二甲基苯胺装置A', '丙溴磷装置', '二甲基苯胺B车间', '罐区', '甲霜灵车间', '甲霜灵装置', '乳油配制车间', '霜霉威装置' ],
+                data: [ 2, 3, 1, 8, 3, 90, 2, 1 ]
+            }
 		}
     },
     methods: {
-        leak(){
+        leak(option){
+            if (!option) option = this.all
+
 			// 基于准备好的dom，初始化echarts实例
 			const myChart = echarts.init(document.getElementById('leak'))
+
 			// 绘制图表
 			myChart.setOption({
 				title: {
@@ -159,20 +170,27 @@ export default {
 					left: 'right'
 				},
 				tooltip: {},
-				dataset: {
-					source: [
-						['product', '维修前排放量', '维修后排放量', '减排量'],
-						['一季度', 43.3, 85.8, 93.7],
-						['二季度', 83.1, 73.4, 55.1],
-						['三季度', 86.4, 65.2, 82.5],
-						['四季度', 72.4, 53.9, 39.1]
-					]
-				},
-				xAxis: { type: 'category' },
+				xAxis: { 
+                    type: 'category',
+                    data: option.device
+                },
 				yAxis: {},
-				series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+				series: [
+                    { 
+                        type: 'bar',
+                        data: option.data
+                    }
+                ]
 			})
 		},
+        clickCurrentCycle() {
+            this.isAllCycle = false
+            this.leak(this.current)
+        },
+        clickAllCycle() {
+            this.isAllCycle = true
+            this.leak(this.all)
+        }
     },
     created() {
     },
