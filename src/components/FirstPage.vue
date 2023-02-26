@@ -10,12 +10,12 @@
 
                     <div class="left-center">
                         <div class="parent">
-                            <div class="item"><span>检测点数: 19083</span></div>
-                            <div class="item"><span>可达点数: 18644</span><span>可达点数: 18644</span></div>
+                            <div class="item" style="background-color: #409EFF"><span>检测点数: 19083</span></div>
+                            <div class="item" style="background-color: #67C23A"><span>可达点数: 18644</span><span>不可达点数: 18644</span></div>
                         </div>
                         <div class="parent">
-                            <div class="item"><span>泄漏点数: 110</span><span>维修点数: 110</span></div>
-                            <div class="item"><span>延迟修复点数: 0</span></div>
+                            <div class="item" style="background-color: #E6A23C"><span>泄漏点数: 110</span><span>维修点数: 110</span></div>
+                            <div class="item" style="background-color: #F56C6C"><span>延迟修复点数: 0</span></div>
                         </div>
                     </div>
 
