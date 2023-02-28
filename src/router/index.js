@@ -8,12 +8,53 @@ import FirstPage from '../components/FirstPage.vue'
 import Users from '../components/user/Users.vue'
 import Rights from '../components/permission/Rights.vue'
 import Roles from '../components/permission/Roles.vue'
+
+// 台账管理
 import UploadComponentLedger from '../components/ledger/UploadComponentLedger.vue'
 import UploadPictureLedger from '../components/ledger/UploadPictureLedger.vue'
 import DeleteComponent from '../components/ledger/DeleteComponent.vue'
 import DeviceManagement from '../components/ledger/DeviceManagement.vue'
 import AreaManagement from '../components/ledger/AreaManagement.vue'
 import EquipmentManagement from '../components/ledger/EquipmentManagement.vue'
+
+// 检测管理
+import RegulationManagement from '../components/detection/RegulationManagement.vue'
+import VerifyRegulation from '../components/detection/VerifyRegulation.vue'
+import Assignment from '../components/detection/Assignment.vue'
+import DownloaDetectionTask from '../components/detection/DownloaDetectionTask.vue'
+import UploadDetectionLedger from '../components/detection/UploadDetectionLedger.vue'
+import UploadDetectionFile from '../components/detection/UploadDetectionFile.vue'
+import NoCheckedRemove from '../components/detection/NoCheckedRemove.vue'
+import RecoverRemove from '../components/detection/RecoverRemove.vue'
+
+// 复测管理
+import ExportRepairOrder from '../components/retest/ExportRepairOrder.vue'
+import UploadRetestInfo from '../components/retest/UploadRetestInfo.vue'
+
+// 报表统计
+import ComponentEmissionTypeAnalysis from '../components/report/ComponentEmissionTypeAnalysis.vue'
+import ComponentInfoLedger from '../components/report/ComponentInfoLedger.vue'
+import ComponentPictureLedger from '../components/report/ComponentPictureLedger.vue'
+import DetectionDataLedger from '../components/report/DetectionDataLedger.vue'
+import EmissionCalculationReport from '../components/report/EmissionCalculationReport.vue'
+import HistoryDetectionStatistics from '../components/report/HistoryDetectionStatistics.vue'
+import HistoryEmissionStatistics from '../components/report/HistoryEmissionStatistics.vue'
+import InstrumentCalibrationRecord from '../components/report/InstrumentCalibrationRecord.vue'
+import LeakInfoLedger from '../components/report/LeakInfoLedger.vue'
+import LeakIntervalAnalysis from '../components/report/LeakIntervalAnalysis.vue'
+
+// 基础参数
+import InstrumentManagement from '../components/param/InstrumentManagement.vue'
+import StandardGasManagement from '../components/param/StandardGasManagement.vue'
+import MeteorologyParameter from '../components/param/MeteorologyParameter.vue'
+import MediumStatus from '../components/param/MediumStatus.vue'
+import InstrumentDetectionStatistics from '../components/param/InstrumentDetectionStatistics.vue'
+import ComponentType from '../components/param/ComponentType.vue'
+import CalibrationManagement from '../components/param/CalibrationManagement.vue'
+import CalculationType from '../components/param/CalculationType.vue'
+import DeviceType from '../components/param/DeviceType.vue'
+import FormulaManagement from '../components/param/FormulaManagement.vue'
+
 
 Vue.use(VueRouter)
 
@@ -37,6 +78,44 @@ const routes = [
 			{ path: '/deviceManagement', component: DeviceManagement, name: '装置管理' },
 			{ path: '/areaManagement', component: AreaManagement, name: '区域管理' },
 			{ path: '/equipmentManagement', component: EquipmentManagement, name: '设备管理' },
+
+			// 检测管理
+			{ path: '/RegulationManagement', component: RegulationManagement, name: '导出维修工单' },
+			{ path: '/VerifyRegulation', component: VerifyRegulation, name: '上传复测信息' },
+			{ path: '/Assignment', component: Assignment, name: '导出维修工单' },
+			{ path: '/DownloaDetectionTask', component: DownloaDetectionTask, name: '上传复测信息' },
+			{ path: '/UploadDetectionLedger', component: UploadDetectionLedger, name: '导出维修工单' },
+			{ path: '/UploadDetectionFile', component: UploadDetectionFile, name: '上传复测信息' },
+			{ path: '/NoCheckedRemove', component: NoCheckedRemove, name: '导出维修工单' },
+			{ path: '/RecoverRemove', component: RecoverRemove, name: '上传复测信息' },
+
+			// 复测管理
+			{ path: '/exportRepairOrder', component: ExportRepairOrder, name: '导出维修工单' },
+			{ path: '/uploadRetestInfo', component: UploadRetestInfo, name: '上传复测信息' },
+
+			// 报表统计
+			{ path: '/componentEmissionTypeAnalysis', component: ComponentEmissionTypeAnalysis, name: '组件排放类型分析' },
+			{ path: '/componentInfoLedger', component: ComponentInfoLedger, name: '组件信息台账' },
+			{ path: '/componentPictureLedger', component: ComponentPictureLedger, name: '组件图片台账' },
+			{ path: '/detectionDataLedger', component: DetectionDataLedger, name: '检测数据台账' },
+			{ path: '/emissionCalculationReport', component: EmissionCalculationReport, name: '排放量计算报告' },
+			{ path: '/historyDetectionStatistics', component: HistoryDetectionStatistics, name: '历史检测统计' },
+			{ path: '/historyEmissionStatistics', component: HistoryEmissionStatistics, name: '历史排放统计' },
+			{ path: '/instrumentCalibrationRecord', component: InstrumentCalibrationRecord, name: '仪器校准记录单' },
+			{ path: '/leakInfoLedger', component: LeakInfoLedger, name: '泄露信息台账' },
+			{ path: '/leakIntervalAnalysis', component: LeakIntervalAnalysis, name: '泄露区间分析' },
+
+			// 基础参数
+			{ path: '/instrumentManagement', component: InstrumentManagement, name: '仪器管理' },
+			{ path: '/standardGasManagement', component: StandardGasManagement, name: '标气管理' },
+			{ path: '/meteorologyParameter', component: MeteorologyParameter, name: '气象参数' },
+			{ path: '/mediumStatus', component: MediumStatus, name: '介质状态' },
+			{ path: '/instrumentDetectionStatistics', component: InstrumentDetectionStatistics, name: '仪器检测统计' },
+			{ path: '/componentType', component: ComponentType, name: '组件类型' },
+			{ path: '/calibrationManagement', component: CalibrationManagement, name: '校准管理' },
+			{ path: '/calculationType', component: CalculationType, name: '计算类型' },
+			{ path: '/deviceType', component: DeviceType, name: '装置类型' },
+			{ path: '/formulaManagement', component: FormulaManagement, name: '公式管理' }
 		]
     }
 ]
