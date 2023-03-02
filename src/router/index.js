@@ -55,13 +55,12 @@ import CalculationType from '../components/param/CalculationType.vue'
 import DeviceType from '../components/param/DeviceType.vue'
 import FormulaManagement from '../components/param/FormulaManagement.vue'
 
-
 Vue.use(VueRouter)
 
 const routes = [
     { path: '/', redirect: '/home',  },
     { path: '/login', component: Login },
-    { 
+    {
 		path: '/home', 
 		component: Home,
 		name: '主页',
@@ -80,14 +79,14 @@ const routes = [
 			{ path: '/equipmentManagement', component: EquipmentManagement, name: '设备管理' },
 
 			// 检测管理
-			{ path: '/RegulationManagement', component: RegulationManagement, name: '导出维修工单' },
-			{ path: '/VerifyRegulation', component: VerifyRegulation, name: '上传复测信息' },
-			{ path: '/Assignment', component: Assignment, name: '导出维修工单' },
-			{ path: '/DownloaDetectionTask', component: DownloaDetectionTask, name: '上传复测信息' },
-			{ path: '/UploadDetectionLedger', component: UploadDetectionLedger, name: '导出维修工单' },
-			{ path: '/UploadDetectionFile', component: UploadDetectionFile, name: '上传复测信息' },
-			{ path: '/NoCheckedRemove', component: NoCheckedRemove, name: '导出维修工单' },
-			{ path: '/RecoverRemove', component: RecoverRemove, name: '上传复测信息' },
+			{ path: '/RegulationManagement', component: RegulationManagement, name: '法规管理' },
+			{ path: '/VerifyRegulation', component: VerifyRegulation, name: '验证法规' },
+			{ path: '/Assignment', component: Assignment, name: '分配任务' },
+			{ path: '/DownloaDetectionTask', component: DownloaDetectionTask, name: '下载检测任务' },
+			{ path: '/UploadDetectionLedger', component: UploadDetectionLedger, name: '上传检测台账' },
+			{ path: '/UploadDetectionFile', component: UploadDetectionFile, name: '上传检测文件' },
+			{ path: '/NoCheckedRemove', component: NoCheckedRemove, name: '未检点移除' },
+			{ path: '/RecoverRemove', component: RecoverRemove, name: '移除点恢复' },
 
 			// 复测管理
 			{ path: '/exportRepairOrder', component: ExportRepairOrder, name: '导出维修工单' },

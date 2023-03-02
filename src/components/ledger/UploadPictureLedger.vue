@@ -15,12 +15,12 @@
 			</el-form>
 		
 			<el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width: 100%">
-				<el-table-column type="index" width="50"></el-table-column>
-				<el-table-column prop="picture" label="图片名称"></el-table-column>
-				<el-table-column prop="uploadTime" label="上传时间"></el-table-column>
-				<el-table-column prop="createUser" label="上传人"></el-table-column>
-				<el-table-column prop="updateTime" label="更新时间"></el-table-column>
-				<el-table-column prop="updateUser" label="更新人"></el-table-column>
+				<el-table-column type="index" width="50" align="center"></el-table-column>
+				<el-table-column prop="picture" label="图片名称" align="center"></el-table-column>
+				<el-table-column prop="uploadTime" label="上传时间" align="center"></el-table-column>
+				<el-table-column prop="createUser" label="上传人" align="center"></el-table-column>
+				<el-table-column prop="updateTime" label="更新时间" align="center"></el-table-column>
+				<el-table-column prop="updateUser" label="更新人" align="center"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button type="primary" icon="el-icon-search" size="mini" @click="showPicture(scope.row)">查看</el-button>

@@ -27,16 +27,16 @@
 			</el-form>
 			<el-table ref="multipleTable" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width: 100%"
 			@selection-change="handleSelectionChange">
-				<el-table-column type="index"></el-table-column>
-				<el-table-column type="selection"></el-table-column>
-				<el-table-column prop="areaNum" label="区域编号"></el-table-column>
-				<el-table-column prop="area" label="区域名称"></el-table-column>
-				<el-table-column prop="deviceNum" label="装置编号"></el-table-column>
-				<el-table-column prop="device" label="装置名称"></el-table-column>
-				<el-table-column prop="createDate" label="创建时间"></el-table-column>
-				<el-table-column prop="createUser" label="创建人"></el-table-column>
-				<el-table-column prop="editDate" label="修改时间"></el-table-column>
-				<el-table-column prop="editUser" label="修改人"></el-table-column>
+				<el-table-column type="index" align="center"></el-table-column>
+				<el-table-column type="selection" align="center"></el-table-column>
+				<el-table-column prop="areaNum" label="区域编号" align="center"></el-table-column>
+				<el-table-column prop="area" label="区域名称" align="center"></el-table-column>
+				<el-table-column prop="deviceNum" label="装置编号" align="center"></el-table-column>
+				<el-table-column prop="device" label="装置名称" align="center"></el-table-column>
+				<el-table-column prop="createDate" label="创建时间" align="center"></el-table-column>
+				<el-table-column prop="createUser" label="创建人" align="center"></el-table-column>
+				<el-table-column prop="editDate" label="修改时间" align="center"></el-table-column>
+				<el-table-column prop="editUser" label="修改人" align="center"></el-table-column>
 			</el-table>
 
             <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" 

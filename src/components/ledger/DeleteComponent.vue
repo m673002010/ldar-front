@@ -40,27 +40,27 @@
 			</el-form>
 		
 			<el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width: 100%">
-				<el-table-column fixed type="index"></el-table-column>
-				<el-table-column fixed type="selection"></el-table-column>
-				<el-table-column fixed prop="device" label="装置名称"></el-table-column>
-				<el-table-column fixed prop="area" label="区域名称"></el-table-column>
-				<el-table-column fixed prop="equipment" label="设备名称"></el-table-column>
-				<el-table-column fixed prop="label" label="标签号"></el-table-column>
-				<el-table-column fixed prop="expand" label="扩展号"></el-table-column>
-				<el-table-column prop="componentType" label="组件类型"></el-table-column>
-				<el-table-column prop="uploadTime" label="PID图号"></el-table-column>
-				<el-table-column prop="reference" label="参考物"></el-table-column>
-				<el-table-column prop="location" label="位置"></el-table-column>
-				<el-table-column prop="distance" label="距离(米)"></el-table-column>
-				<el-table-column prop="floor" label="楼层"></el-table-column>
-				<el-table-column prop="high" label="高度(米)"></el-table-column>
-				<el-table-column prop="description" label="附加描述"></el-table-column>
-				<el-table-column prop="size" label="尺寸(mm)"></el-table-column>
-				<el-table-column prop="unreachable" label="是否不可达"></el-table-column>
-				<el-table-column prop="reason" label="不可达原因"></el-table-column>
-				<el-table-column prop="medium" label="主要介质"></el-table-column>
-				<el-table-column prop="status" label="介质状态"></el-table-column>
-				<el-table-column prop="quantity" label="数量"></el-table-column>
+				<el-table-column fixed type="index" align="center"></el-table-column>
+				<el-table-column fixed type="selection" align="center"></el-table-column>
+				<el-table-column fixed prop="device" label="装置名称" align="center"></el-table-column>
+				<el-table-column fixed prop="area" label="区域名称" align="center"></el-table-column>
+				<el-table-column fixed prop="equipment" label="设备名称" align="center"></el-table-column>
+				<el-table-column fixed prop="label" label="标签号" align="center"></el-table-column>
+				<el-table-column fixed prop="expand" label="扩展号" align="center"></el-table-column>
+				<el-table-column prop="componentType" label="组件类型" align="center"></el-table-column>
+				<el-table-column prop="uploadTime" label="PID图号" align="center"></el-table-column>
+				<el-table-column prop="reference" label="参考物" align="center"></el-table-column>
+				<el-table-column prop="location" label="位置" align="center"></el-table-column>
+				<el-table-column prop="distance" label="距离(米)" align="center"></el-table-column>
+				<el-table-column prop="floor" label="楼层" align="center"></el-table-column>
+				<el-table-column prop="high" label="高度(米)" align="center"></el-table-column>
+				<el-table-column prop="description" label="附加描述" align="center"></el-table-column>
+				<el-table-column prop="size" label="尺寸(mm)" align="center"></el-table-column>
+				<el-table-column prop="unreachable" label="是否不可达" align="center"></el-table-column>
+				<el-table-column prop="reason" label="不可达原因" align="center"></el-table-column>
+				<el-table-column prop="medium" label="主要介质" align="center"></el-table-column>
+				<el-table-column prop="status" label="介质状态" align="center"></el-table-column>
+				<el-table-column prop="quantity" label="数量" align="center"></el-table-column>
 			</el-table>
 
             <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" 

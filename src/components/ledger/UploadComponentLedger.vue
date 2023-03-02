@@ -36,13 +36,13 @@
 			</el-form>
 		
 			<el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width: 100%">
-				<el-table-column type="index" width="50"></el-table-column>
-				<el-table-column prop="import" label="导入文件名"></el-table-column>
-				<el-table-column prop="new" label="新增数据量"></el-table-column>
-				<el-table-column prop="edit" label="修改数据量"></el-table-column>
-				<el-table-column prop="drop" label="丢弃数据量"></el-table-column>
-				<el-table-column prop="createDate" label="创建时间"></el-table-column>
-				<el-table-column prop="user" label="创建人"></el-table-column>
+				<el-table-column type="index" width="50" align="center"></el-table-column>
+				<el-table-column prop="import" label="导入文件名" align="center"></el-table-column>
+				<el-table-column prop="new" label="新增数据量" align="center"></el-table-column>
+				<el-table-column prop="edit" label="修改数据量" align="center"></el-table-column>
+				<el-table-column prop="drop" label="丢弃数据量" align="center"></el-table-column>
+				<el-table-column prop="createDate" label="创建时间" align="center"></el-table-column>
+				<el-table-column prop="user" label="创建人" align="center"></el-table-column>
 			</el-table>
 
             <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" 
