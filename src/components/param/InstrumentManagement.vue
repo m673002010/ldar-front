@@ -1,5 +1,79 @@
 <template>
     <div>
-        <h3>InstrumentManagement</h3>
-    </div>
+		<el-card>
+			<el-form ref="form" :model="form" label-width="100px" :inline="true">
+				<el-form-item label="序列号:">
+					<el-input v-model="form.serialNumber"></el-input>
+				</el-form-item>
+				<el-form-item label="检测仪器名称:">
+					<el-input v-model="form.testEquipment"></el-input>
+				</el-form-item>
+				<el-form-item>
+					<el-button type="primary" icon="el-icon-search">查询</el-button>
+                    <el-button type="success" icon="el-icon-plus">新增</el-button>
+					<el-button type="warning" icon="el-icon-edit">编辑</el-button>
+					<el-button type="danger" icon="el-icon-delete">删除</el-button>
+				</el-form-item>
+			</el-form>
+
+			<el-table ref="multipleTable" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width: 100%"
+			@selection-change="handleSelectionChange">
+				<el-table-column type="index" align="center"></el-table-column>
+				<el-table-column type="selection" align="center"></el-table-column>
+				<el-table-column prop="serialNumber" label="序列号" align="center"></el-table-column>
+				<el-table-column prop="testEquipment" label="检测仪器名称" align="center"></el-table-column>
+                <el-table-column prop="finalPrecisionTime" label="最后精密校准时间" align="center"></el-table-column>
+                <el-table-column prop="responseTime" label="响应时间" align="center"></el-table-column>
+				<el-table-column prop="invalidTime" label="失效时间" align="center"></el-table-column>
+                <el-table-column prop="createDate" label="创建时间" align="center"></el-table-column>
+				<el-table-column prop="createUser" label="创建人" align="center"></el-table-column>
+				<el-table-column prop="editDate" label="修改时间" align="center"></el-table-column>
+				<el-table-column prop="editUser" label="修改人" align="center"></el-table-column>
+			</el-table>
+
+            <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange" 
+                :current-page="currentPage" 
+                :page-sizes="[1, 5, 10, 20]" 
+                :page-size="pageSize" 
+                layout="total, sizes, prev, pager, next, jumper" 
+                :total="tableData.length">
+            </el-pagination>
+		</el-card>
+	</div>
 </template>
+
+<script>
+export default {
+    data() {
+		return {
+			tableData: [
+			],
+			form: {
+				serialNumber: '',
+                testEquipment: '',
+			},
+            multipleSelection: [],
+			currentPage: 1, // 当前页码
+            total: 0, // 总条数
+            pageSize: 10 // 每页的数据条数
+		}
+    },
+    methods: {
+		handleSizeChange(val){
+            this.currentPage = 1
+            this.pageSize = val
+        },
+        handleCurrentChange(val){
+            this.currentPage = val
+        },
+      	handleSelectionChange(val) {
+        	this.multipleSelection = val
+      	}
+    },
+    created() {
+    }
+}
+</script>
+
+<style lang="less" scoped>
+</style>
