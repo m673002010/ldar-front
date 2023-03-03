@@ -25,7 +25,7 @@
 					<el-button type="danger" icon="el-icon-delete">删除</el-button>
 				</el-form-item>
 			</el-form>
-		
+
 			<el-table ref="multipleTable" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width: 100%"
 			@selection-change="handleSelectionChange">
 				<el-table-column type="index" align="center"></el-table-column>
