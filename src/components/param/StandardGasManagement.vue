@@ -9,10 +9,10 @@
 					<el-input v-model="form.standardGas"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" icon="el-icon-search">查询</el-button>
-                    <el-button type="success" icon="el-icon-plus">新增</el-button>
-					<el-button type="warning" icon="el-icon-edit">编辑</el-button>
-					<el-button type="danger" icon="el-icon-delete">删除</el-button>
+					<el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
+                    <el-button type="success" icon="el-icon-plus" @click="add">新增</el-button>
+					<el-button type="warning" icon="el-icon-edit" @click="edit">编辑</el-button>
+					<el-button type="danger" icon="el-icon-delete" @click="del">删除</el-button>
 				</el-form-item>
 			</el-form>
 
@@ -63,6 +63,18 @@ export default {
 		}
     },
     methods: {
+		query() {
+
+		},
+		add() {
+
+		},
+		edit() {
+
+		},
+		del() {
+
+		},
 		handleSizeChange(val){
             this.currentPage = 1
             this.pageSize = val

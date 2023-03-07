@@ -189,7 +189,6 @@ export default {
             })
         },
         editUser(row) { // 编辑用户
-            console.log(row)
             this.editDialog = true
             this.editForm = { userId: row.userId, username: row.username, password: row.password }
         },
