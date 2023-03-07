@@ -23,7 +23,7 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" icon="el-icon-search">查询</el-button>
+					<el-button type="primary" icon="el-icon-search" @click="queryData">查询</el-button>
 					<el-button type="primary" icon="el-icon-download" @click="downloadTemplate">下载模板</el-button>
 				</el-form-item>
 				<el-form-item>
@@ -33,8 +33,8 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" icon="el-icon-folder-remove" @click="exportData">导出数据</el-button>
-					<el-button type="primary" icon="el-icon-refresh">重置</el-button>
-					<el-button type="danger" icon="el-icon-delete">清除</el-button>
+					<el-button type="primary" icon="el-icon-refresh" @click="resetForm">重置</el-button>
+					<el-button type="danger" icon="el-icon-delete" @click="clearData">清除</el-button>
 				</el-form-item>
 			</el-form>
 
@@ -82,21 +82,7 @@ export default {
 				'检定/校准证书编号': 'certificateNum',
 				'描述': 'description',
 			},
-			tableData: [
-				{
-					year: '2022', 
-					quarter: '一', 
-					area: '2,6-二甲基苯胺', 
-					instrumentNum: '', 
-					instrument: '', 
-					model: '', 
-					maintenance: '',
-					quantity: '',
-					calibrationUnit: '',
-					certificateNum: '', 
-					description: '' 
-				}
-			],
+			tableData: [],
 			form: {
 				year: '',
 				quarter: '',
@@ -109,29 +95,41 @@ export default {
 				{ label: '2023', value: '2023' },
 			],
 			quarterOptions: [
-				{ label: '第一季度', value: '1' },
-				{ label: '第二季度', value: '2' },
-				{ label: '第三季度', value: '3' },
-				{ label: '第四季度', value: '4' }
+				{ label: '第一季度', value: '第一季度' },
+				{ label: '第二季度', value: '第二季度' },
+				{ label: '第三季度', value: '第三季度' },
+				{ label: '第四季度', value: '第四季度' }
 			],
 			currentPage: 1, // 当前页码
             total: 0, // 总条数
-            pageSize: 10 // 每页的数据条数
+            pageSize: 10, // 每页的数据条数
 		}
     },
     methods: {
+		async queryData() {
+			const { data: result } = await this.$http.get('/param/instrumentDetectionStatistics', { params: this.form })
+			this.tableData = result.data
+		},
 		async importData(file, fileList) {
 			const excelData = await this.readExcel(file) // 调用读取excel数据的方法
-			const data = []
+			const importData = []
 			for (const item of excelData) {
 				const obj = {}
 				for (let key in item) {
 					obj[this.tableProps[key]] = item[key]
 				}
-				data.push(obj)
+				importData.push(obj)
 			}
 
-			const { data: result } = await this.$http.post('/param/importData', data)
+			const { data: result } = await this.$http.post('/param/importData', { importData })
+			
+			if (+result.code === 0) {
+				this.$message.success('导入成功')
+			} else {
+				this.$message.error('导入失败')
+			}
+
+			await this.queryData()
 		},
 		async readExcel(file) {
 			const buffer = await this.readFile(file)
@@ -177,12 +175,38 @@ export default {
 			})
 		},
 		async exportData() {
-			
+			const { data: result } = await this.$http.get('/param/instrumentDetectionStatistics', { params: this.form })
+			const exportData = result.data
+
+			const workbook = new ExcelJs.Workbook()
+			const worksheet = workbook.addWorksheet('sheet1')
+			worksheet.columns = [
+				{ header: '年份', key: 'year' },
+				{ header: '检测季度', key: 'quarter' },
+				{ header: '仪器编号', key: 'instrumentNum' },
+				{ header: '仪器名称', key: 'instrument' },
+				{ header: '仪器型号', key: 'model' },
+				{ header: '维护内容', key: 'maintenance' },
+				{ header: '检测数量', key: 'quantity' },
+				{ header: '检定/校准单位', key: 'calibrationUnit' },
+				{ header: '检定/校准证书编号', key: 'certificateNum' },
+				{ header: '描述', key: 'description' }
+			]
+			worksheet.addRows(exportData)
+			const buffer = await workbook.xlsx.writeBuffer()
+			const link = document.createElement("a")
+			const blobData = new Blob([buffer], { type: "application/vnd.ms-excel;charset=utf-8;" })
+			link.download = '仪器管理信息报告.xlsx'
+			link.href = URL.createObjectURL(blobData)
+			link.click()
+
 		},
 		async downloadTemplate() {
 			const workbook = new ExcelJs.Workbook()
 			const worksheet = workbook.addWorksheet('sheet1')
 			worksheet.columns = [
+				{ header: '年份', key: 'year' },
+				{ header: '检测季度', key: 'quarter' },
 				{ header: '仪器编号', key: 'instrumentNum' },
 				{ header: '仪器名称', key: 'instrument' },
 				{ header: '仪器型号', key: 'model' },
@@ -198,6 +222,16 @@ export default {
 			link.download = '仪器管理信息报告.xlsx'
 			link.href = URL.createObjectURL(blobData)
 			link.click()
+		},
+		resetForm() {
+			this.form = {
+				year: '',
+				quarter: '',
+			}
+		},
+		async clearData() {
+			const { data: result } = await this.$http.get('/param/deleteData')
+			await this.queryData()
 		},
 		handleSizeChange(val){
             this.currentPage = 1
