@@ -107,7 +107,7 @@ export default {
     },
     methods: {
 		async queryData() {
-			const { data: result } = await this.$http.get('/param/instrumentDetectionStatistics', { params: this.form })
+			const { data: result } = await this.$http.get('/iDS/instrumentDetectionStatistics', { params: this.form })
 			this.tableData = result.data
 		},
 		async importData(file, fileList) {
@@ -121,7 +121,7 @@ export default {
 				importData.push(obj)
 			}
 
-			const { data: result } = await this.$http.post('/param/importData', { importData })
+			const { data: result } = await this.$http.post('/iDS/importData', { importData })
 			
 			if (+result.code === 0) {
 				this.$message.success('导入成功')
@@ -175,7 +175,7 @@ export default {
 			})
 		},
 		async exportData() {
-			const { data: result } = await this.$http.get('/param/instrumentDetectionStatistics', { params: this.form })
+			const { data: result } = await this.$http.get('/iDS/instrumentDetectionStatistics', { params: this.form })
 			const exportData = result.data
 
 			const workbook = new ExcelJs.Workbook()
@@ -199,7 +199,6 @@ export default {
 			link.download = '仪器管理信息报告.xlsx'
 			link.href = URL.createObjectURL(blobData)
 			link.click()
-
 		},
 		async downloadTemplate() {
 			const workbook = new ExcelJs.Workbook()
@@ -230,7 +229,7 @@ export default {
 			}
 		},
 		async clearData() {
-			const { data: result } = await this.$http.get('/param/deleteData')
+			const { data: result } = await this.$http.get('/iDS/deleteData')
 			await this.queryData()
 		},
 		handleSizeChange(val){

@@ -1,12 +1,12 @@
 <template>
     <div>
 		<el-card>
-			<el-form ref="form" :model="form" label-width="80px" :inline="true">
+			<el-form ref="mediumForm" :model="mediumForm" label-width="80px" :inline="true">
 				<el-form-item label="介质编号">
-					<el-input v-model="form.mediumNum"></el-input>
+					<el-input v-model="mediumForm.mediumNum"></el-input>
 				</el-form-item>
 				<el-form-item label="设备名称">
-					<el-input v-model="form.medium"></el-input>
+					<el-input v-model="mediumForm.medium"></el-input>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" icon="el-icon-search">查询</el-button>
@@ -37,6 +37,30 @@
                 :total="tableData.length">
             </el-pagination>
 		</el-card>
+
+		<el-dialog
+            title="介质状态"
+            :visible.sync="mediumDialog"
+            width="30%" @close="dialogClose('addMediumForm')">
+            <el-form :model="addMediumForm" ref="addMediumFormRef" label-width="70px">
+                <el-form-item label="介质编号" prop="mediumNum">
+                    <el-input v-model="addMediumForm.mediumNum"></el-input>
+                </el-form-item>
+				<el-form-item label="导出报告" prop="report">
+                    <el-select v-model="addMediumForm.report">
+                        <el-option v-for="(report, index) in reportOptions" :key="index" :label="report" :value="report">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="介质名称" prop="medium">
+                    <el-input v-model="addMediumForm.medium"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="mediumDialog = false">取 消</el-button>
+                <el-button type="primary" @click="submit">确 定</el-button>
+            </span>
+        </el-dialog>
 	</div>
 </template>
 
@@ -49,17 +73,31 @@ export default {
                 { mediumNum: 'H', medium: '重液', report: 'Heavy Liquid', createDate: '2022-01-17', createUser: 'admin',editDate: '2022-01-17', editUser: 'admin' },
                 { mediumNum: 'L', medium: '轻液', report: 'Light Liquid', createDate: '2022-01-17', createUser: 'admin',editDate: '2022-01-17', editUser: 'admin' },
 			],
-			form: {
+			mediumForm: {
 				mediumNum: '',
 				medium: '',
 			},
+			addMediumForm: {
+				mediumNum: '',
+				medium: '',
+				report: ''
+			},
+			reportOptions: [
+				'Gas/Vapor',
+				'Heavy Liquid',
+				'Light Liquid'
+			],
             multipleSelection: [],
 			currentPage: 1, // 当前页码
             total: 0, // 总条数
-            pageSize: 10 // 每页的数据条数
+            pageSize: 10, // 每页的数据条数
+			mediumDialog: false,	
 		}
     },
     methods: {
+		submit() {
+
+		},
 		handleSizeChange(val){
             this.currentPage = 1
             this.pageSize = val
@@ -69,7 +107,10 @@ export default {
         },
       	handleSelectionChange(val) {
         	this.multipleSelection = val
-      	}
+      	},
+		dialogClose (form) { // 关闭对话框
+            this.$refs[`${form}Ref`].resetFields()
+        },
     },
     created() {
     }
