@@ -1,28 +1,28 @@
 <template>
     <div>
 		<el-card>
-			<el-form ref="form" :model="form" label-width="100px" :inline="true">
+			<el-form ref="componentTypeForm" :model="componentTypeForm" label-width="100px" :inline="true">
 				<el-form-item label="组件类型编号">
-					<el-input v-model="form.componentTypeNum"></el-input>
+					<el-input v-model="componentTypeForm.componentTypeNum"></el-input>
 				</el-form-item>
 				<el-form-item label="组件类型名称">
-					<el-input v-model="form.componentType"></el-input>
+					<el-input v-model="componentTypeForm.componentType"></el-input>
 				</el-form-item>
                 <el-form-item label="计算类别名称">
-					<el-select v-model="form.calculationType" placeholder="请选择">
+					<el-select v-model="componentTypeForm.calculationType" placeholder="请选择">
 						<el-option
-							v-for="item in calculationTypeOptions"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
+							v-for="(calculationType, index) in calculationTypeOptions"
+							:key="index"
+							:label="calculationType"
+							:value="calculationType">
 						</el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" icon="el-icon-search">查询</el-button>
-                    <el-button type="success" icon="el-icon-plus">新增</el-button>
-					<el-button type="warning" icon="el-icon-edit">编辑</el-button>
-					<el-button type="danger" icon="el-icon-delete">删除</el-button>
+					<el-button type="primary" icon="el-icon-search" @click="queryComponentType">查询</el-button>
+                    <el-button type="success" icon="el-icon-plus" @click="addComponentTypeDialog = true">新增</el-button>
+					<el-button type="warning" icon="el-icon-edit" @click="editComponentType">编辑</el-button>
+					<el-button type="danger" icon="el-icon-delete" @click="deleteComponentType">删除</el-button>
 				</el-form-item>
 			</el-form>
 
@@ -47,6 +47,54 @@
                 :total="tableData.length">
             </el-pagination>
 		</el-card>
+
+		<el-dialog
+            title="组件类型"
+            :visible.sync="addComponentTypeDialog"
+            width="30%" @close="dialogClose('addComponentTypeForm')">
+            <el-form :model="addComponentTypeForm" ref="addComponentTypeFormRef" label-width="100px">
+                <el-form-item label="组件类型编号" prop="componentTypeNum">
+                    <el-input v-model="addComponentTypeForm.componentTypeNum" style="width: 180px"></el-input>
+                </el-form-item>
+				<el-form-item label="计算类别" prop="calculationType">
+                    <el-select v-model="addComponentTypeForm.calculationType" style="width: 180px">
+                        <el-option v-for="(calculationType, index) in calculationTypeOptions" :key="index" :label="calculationType" :value="calculationType">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="组件类型名称" prop="componentType">
+                    <el-input v-model="addComponentTypeForm.componentType" style="width: 180px"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="addComponentTypeDialog = false">取 消</el-button>
+                <el-button type="primary" @click="submit">确 定</el-button>
+            </span>
+        </el-dialog>
+
+		<el-dialog
+            title="组件类型"
+            :visible.sync="editComponentTypeDialog"
+            width="30%" @close="dialogClose('editComponentTypeForm')">
+            <el-form :model="editComponentTypeForm" ref="editComponentTypeFormRef" label-width="100px">
+                <el-form-item label="组件类型编号" prop="componentTypeNum">
+                    <el-input v-model="editComponentTypeForm.componentTypeNum" style="width: 180px"></el-input>
+                </el-form-item>
+				<el-form-item label="计算类别" prop="calculationType">
+                    <el-select v-model="editComponentTypeForm.calculationType" style="width: 180px">
+                        <el-option v-for="(calculationType, index) in calculationTypeOptions" :key="index" :label="calculationType" :value="calculationType">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="组件类型名称" prop="componentType">
+                    <el-input v-model="editComponentTypeForm.componentType" style="width: 180px"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="editComponentTypeDialog = false">取 消</el-button>
+                <el-button type="primary" @click="submitEdit">确 定</el-button>
+            </span>
+        </el-dialog>
 	</div>
 </template>
 
@@ -54,24 +102,94 @@
 export default {
     data() {
 		return {
-			tableData: [
-                { componentTypeNum: 'A', componentType: '搅拌器', calculationType: '搅拌器', createDate: '2022-01-17', createUser: 'admin',editDate: '2022-01-17', editUser: 'admin' },
-                { componentTypeNum: 'C', componentType: '连接件', calculationType: '连接件', createDate: '2022-01-17', createUser: 'admin',editDate: '2022-01-17', editUser: 'admin' },
-                { componentTypeNum: 'F', componentType: '法兰', calculationType: '法兰', createDate: '2022-01-17', createUser: 'admin',editDate: '2022-01-17', editUser: 'admin' },
-			],
-			form: {
+			tableData: [],
+			componentTypeForm: {
 				componentTypeNum: '',
 				componentType: '',
                 calculationType: '',
 			},
-            calculationTypeOptions: [],
+			addComponentTypeForm: {
+				componentTypeNum: '',
+				componentType: '',
+                calculationType: '',
+			},
+			editComponentTypeForm: {
+				componentTypeNum: '',
+				componentType: '',
+                calculationType: '',
+			},
+            calculationTypeOptions: [
+				'搅拌器',
+				'连接件',
+				'压缩机',
+				'法兰',
+				'其他',
+				'开口管线',
+				'泵',
+				'泄压设备',
+				'取样连接系统',
+				'阀门',
+			],
             multipleSelection: [],
+			addComponentTypeDialog: false,
+			editComponentTypeDialog: false,
 			currentPage: 1, // 当前页码
             total: 0, // 总条数
             pageSize: 10 // 每页的数据条数
 		}
     },
     methods: {
+		async queryComponentType() {
+			const { data: result } = await this.$http.get('/componentType/queryComponentType', { params: this.componentTypeForm })
+			this.tableData = result.data
+		},
+		async submit() {
+			const { data: result } = await this.$http.post('/componentType/addComponentType', this.addComponentTypeForm)
+
+			if (+result.code === 0) {
+				this.$message.success('组件类型添加成功')
+			} else {
+				this.$message.error('组件类型添加失败')
+			}
+			this.queryComponentType()
+			this.addComponentTypeDialog = false
+		},
+		editComponentType() {
+			if (this.multipleSelection.length !== 1 ) {
+				this.$message.error('请一次勾选一条数据')
+				return
+			}
+			this.editComponentTypeDialog = true
+			this.editComponentTypeForm.componentTypeNum = this.multipleSelection[0].componentTypeNum
+			this.editComponentTypeForm.componentType = this.multipleSelection[0].componentType
+			this.editComponentTypeForm.calculationType = this.multipleSelection[0].calculationType
+		},
+		async submitEdit() {
+			const { data: result } = await this.$http.post('/componentType/editComponentType', this.editComponentTypeForm)
+
+			if (+result.code === 0) {
+				this.$message.success('组件类型编辑成功')
+			} else {
+				this.$message.error('组件类型编辑失败')
+			}
+			this.queryComponentType()
+			this.editComponentTypeDialog = false
+		},
+		async deleteComponentType() {
+			if (this.multipleSelection.length === 0 ) {
+				this.$message.error('请勾选数据')
+				return
+			}
+			const { data: result } = await this.$http.post('/componentType/deleteComponentType', { deleteData: this.multipleSelection })
+
+			if (+result.code === 0) {
+				this.$message.success('组件类型删除成功')
+			} else {
+				this.$message.error('组件类型删除失败')
+			}
+
+			this.queryComponentType()
+		},
 		handleSizeChange(val){
             this.currentPage = 1
             this.pageSize = val
@@ -81,9 +199,13 @@ export default {
         },
       	handleSelectionChange(val) {
         	this.multipleSelection = val
-      	}
+      	},
+		dialogClose (form) { // 关闭对话框
+            this.$refs[`${form}Ref`].resetFields()
+        },
     },
     created() {
+		this.queryComponentType()
     }
 }
 </script>
