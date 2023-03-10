@@ -48,6 +48,7 @@
                 </el-form-item>
 				<el-form-item label="导出报告" prop="report">
                     <el-select v-model="addMediumForm.report" style="width: 180px">
+
                         <el-option v-for="(report, index) in reportOptions" :key="index" :label="report" :value="report">
                         </el-option>
                     </el-select>
