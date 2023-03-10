@@ -36,41 +36,41 @@
                 :total="tableData.length">
             </el-pagination>
 
-		<el-dialog
-            title="组件类型"
-            :visible.sync="addCalculationTypeDialog"
-            width="30%" @close="dialogClose('addCalculationTypeForm')">
-            <el-form :model="addCalculationTypeForm" ref="addCalculationTypeFormRef" label-width="100px">
-                <el-form-item label="计算类型编号" prop="calculationTypeNum">
-                    <el-input v-model="addCalculationTypeForm.calculationTypeNum" style="width: 180px"></el-input>
-                </el-form-item>
-                <el-form-item label="计算名称" prop="calculationType">
-                    <el-input v-model="addCalculationTypeForm.calculationType" style="width: 180px"></el-input>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="addCalculationTypeDialog = false">取 消</el-button>
-                <el-button type="primary" @click="submit">确 定</el-button>
-            </span>
-        </el-dialog>
+			<el-dialog
+				title="计算类型"
+				:visible.sync="addCalculationTypeDialog"
+				width="30%" @close="dialogClose('addCalculationTypeForm')">
+				<el-form :model="addCalculationTypeForm" ref="addCalculationTypeFormRef" label-width="100px">
+					<el-form-item label="计算类型编号" prop="calculationTypeNum">
+						<el-input v-model="addCalculationTypeForm.calculationTypeNum" style="width: 180px"></el-input>
+					</el-form-item>
+					<el-form-item label="计算名称" prop="calculationType">
+						<el-input v-model="addCalculationTypeForm.calculationType" style="width: 180px"></el-input>
+					</el-form-item>
+				</el-form>
+				<span slot="footer" class="dialog-footer">
+					<el-button @click="addCalculationTypeDialog = false">取 消</el-button>
+					<el-button type="primary" @click="submit">确 定</el-button>
+				</span>
+			</el-dialog>
 
-		<el-dialog
-            title="组件类型"
-            :visible.sync="editCalculationTypeDialog"
-            width="30%" @close="dialogClose('editCalculationTypeForm')">
-            <el-form :model="editCalculationTypeForm" ref="editCalculationTypeFormRef" label-width="100px">
-                <el-form-item label="计算类型编号" prop="calculationTypeNum">
-                    <el-input v-model="editCalculationTypeForm.calculationTypeNum" disabled style="width: 180px"></el-input>
-                </el-form-item>
-                <el-form-item label="计算类别" prop="calculationType">
-                    <el-input v-model="editCalculationTypeForm.calculationType" style="width: 180px"></el-input>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="editCalculationTypeDialog = false">取 消</el-button>
-                <el-button type="primary" @click="submitEdit">确 定</el-button>
-            </span>
-        </el-dialog>
+			<el-dialog
+				title="计算类型"
+				:visible.sync="editCalculationTypeDialog"
+				width="30%" @close="dialogClose('editCalculationTypeForm')">
+				<el-form :model="editCalculationTypeForm" ref="editCalculationTypeFormRef" label-width="100px">
+					<el-form-item label="计算类型编号" prop="calculationTypeNum">
+						<el-input v-model="editCalculationTypeForm.calculationTypeNum" disabled style="width: 180px"></el-input>
+					</el-form-item>
+					<el-form-item label="计算类别" prop="calculationType">
+						<el-input v-model="editCalculationTypeForm.calculationType" style="width: 180px"></el-input>
+					</el-form-item>
+				</el-form>
+				<span slot="footer" class="dialog-footer">
+					<el-button @click="editCalculationTypeDialog = false">取 消</el-button>
+					<el-button type="primary" @click="submitEdit">确 定</el-button>
+				</span>
+			</el-dialog>
 		</el-card>
 	</div>
 </template>
