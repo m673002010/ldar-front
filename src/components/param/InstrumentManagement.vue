@@ -1,18 +1,18 @@
 <template>
     <div>
 		<el-card>
-			<el-form ref="form" :model="form" label-width="100px" :inline="true">
+			<el-form ref="instrumentManagementFormRef" :model="instrumentManagementForm" label-width="100px" :inline="true">
 				<el-form-item label="序列号:">
-					<el-input v-model="form.serialNumber"></el-input>
+					<el-input v-model="instrumentManagementForm.serialNumber"></el-input>
 				</el-form-item>
 				<el-form-item label="检测仪器名称:">
-					<el-input v-model="form.testEquipment"></el-input>
+					<el-input v-model="instrumentManagementForm.testInstrument"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" icon="el-icon-search">查询</el-button>
-                    <el-button type="success" icon="el-icon-plus">新增</el-button>
-					<el-button type="warning" icon="el-icon-edit">编辑</el-button>
-					<el-button type="danger" icon="el-icon-delete">删除</el-button>
+					<el-button type="primary" icon="el-icon-search" @click="queryInstrument">查询</el-button>
+                    <el-button type="success" icon="el-icon-plus" @click="addInstrumentDialog = true">新增</el-button>
+					<el-button type="warning" icon="el-icon-edit" @click="editInstrument">编辑</el-button>
+					<el-button type="danger" icon="el-icon-delete" @click="deleteInstrument">删除</el-button>
 				</el-form-item>
 			</el-form>
 
@@ -21,10 +21,10 @@
 				<el-table-column type="index" align="center"></el-table-column>
 				<el-table-column type="selection" align="center"></el-table-column>
 				<el-table-column prop="serialNumber" label="序列号" align="center"></el-table-column>
-				<el-table-column prop="testEquipment" label="检测仪器名称" align="center"></el-table-column>
+				<el-table-column prop="testInstrument" label="检测仪器名称" align="center"></el-table-column>
                 <el-table-column prop="finalPrecisionTime" label="最后精密校准时间" align="center"></el-table-column>
-                <el-table-column prop="responseTime" label="响应时间" align="center"></el-table-column>
 				<el-table-column prop="invalidTime" label="失效时间" align="center"></el-table-column>
+				<el-table-column prop="responseTime" label="响应时间" align="center"></el-table-column>
                 <el-table-column prop="createDate" label="创建时间" align="center"></el-table-column>
 				<el-table-column prop="createUser" label="创建人" align="center"></el-table-column>
 				<el-table-column prop="editDate" label="修改时间" align="center"></el-table-column>
@@ -39,6 +39,62 @@
                 :total="tableData.length">
             </el-pagination>
 		</el-card>
+
+		<el-dialog
+            title="检测仪器"
+            :visible.sync="addInstrumentDialog"
+            width="30%" @close="dialogClose('addInstrumentForm')">
+            <el-form :model="addInstrumentForm" ref="addInstrumentFormRef" label-width="150px">
+                <el-form-item label="序列号" prop="serialNumber">
+                    <el-input v-model="addInstrumentForm.serialNumber" style="width: 180px"></el-input>
+                </el-form-item>
+                <el-form-item label="检测仪器名称" prop="testInstrument">
+                    <el-input v-model="addInstrumentForm.testInstrument" style="width: 180px"></el-input>
+                </el-form-item>
+				<el-form-item label="最后精密校准时间" prop="finalPrecisionTime" >
+					<el-date-picker v-model="addInstrumentForm.finalPrecisionTime" type="date" placeholder="选择日期" style="width: 180px"></el-date-picker>
+                </el-form-item>
+				<el-form-item label="失效日期" prop="invalidTime" >
+					<el-date-picker v-model="addInstrumentForm.invalidTime" type="date" placeholder="选择日期" style="width: 180px"></el-date-picker>
+                </el-form-item>
+				<el-form-item label="响应时间" prop="responseTime">
+                    <el-input v-model="addInstrumentForm.responseTime" style="width: 180px"></el-input>
+					秒
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="addInstrumentDialog = false">取 消</el-button>
+                <el-button type="primary" @click="submit">确 定</el-button>
+            </span>
+        </el-dialog>
+
+		<el-dialog
+            title="检测仪器"
+            :visible.sync="editInstrumentDialog"
+            width="30%" @close="dialogClose('editInstrumentForm')">
+            <el-form :model="editInstrumentForm" ref="editInstrumentFormRef" label-width="150px">
+                <el-form-item label="序列号" prop="serialNumber">
+                    <el-input v-model="editInstrumentForm.serialNumber" disabled style="width: 180px"></el-input>
+                </el-form-item>
+                <el-form-item label="检测仪器名称" prop="testInstrument">
+                    <el-input v-model="editInstrumentForm.testInstrument" style="width: 180px"></el-input>
+                </el-form-item>
+				<el-form-item label="最后精密校准时间" prop="finalPrecisionTime" >
+					<el-date-picker v-model="editInstrumentForm.finalPrecisionTime" type="date" placeholder="选择日期" style="width: 180px"></el-date-picker>
+                </el-form-item>
+				<el-form-item label="失效日期" prop="invalidTime" >
+					<el-date-picker v-model="editInstrumentForm.invalidTime" type="date" placeholder="选择日期" style="width: 180px"></el-date-picker>
+                </el-form-item>
+				<el-form-item label="响应时间" prop="responseTime">
+                    <el-input v-model="editInstrumentForm.responseTime" style="width: 180px"></el-input>
+					秒
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="editInstrumentDialog = false">取 消</el-button>
+                <el-button type="primary" @click="submitEdit">确 定</el-button>
+            </span>
+        </el-dialog>
 	</div>
 </template>
 
@@ -46,19 +102,87 @@
 export default {
     data() {
 		return {
-			tableData: [
-			],
-			form: {
+			tableData: [],
+			instrumentManagementForm: {
 				serialNumber: '',
-                testEquipment: '',
+                testInstrument: '',
+			},
+			addInstrumentForm: {
+				serialNumber: '',
+				testInstrument: '',
+				finalPrecisionTime: '',
+				responseTime: '',
+				invalidTime: '',
+			},
+			editInstrumentForm: {
+				serialNumber: '',
+				testInstrument: '',
+				finalPrecisionTime: '',
+				responseTime: '',
+				invalidTime: '',
 			},
             multipleSelection: [],
 			currentPage: 1, // 当前页码
             total: 0, // 总条数
-            pageSize: 10 // 每页的数据条数
+            pageSize: 10, // 每页的数据条数
+			addInstrumentDialog: false,
+			editInstrumentDialog: false
 		}
     },
     methods: {
+		async queryInstrument() {
+			const { data: result } = await this.$http.get('/instrument/queryInstrument', { params: this.instrumentManagementForm })
+			this.tableData = result.data
+		},
+		async submit() {
+			const { data: result } = await this.$http.post('/instrument/addInstrument', this.addInstrumentForm)
+
+			if (+result.code === 0) {
+				this.$message.success('介质添加成功')
+			} else {
+				this.$message.error('介质添加失败')
+			}
+			this.queryInstrument()
+			this.addInstrumentDialog = false
+		},
+		editInstrument() {
+			if (this.multipleSelection.length !== 1 ) {
+				this.$message.error('请一次勾选一条数据')
+				return
+			}
+			this.editInstrumentDialog = true
+			this.editInstrumentForm.serialNumber = this.multipleSelection[0].serialNumber
+			this.editInstrumentForm.testInstrument = this.multipleSelection[0].testInstrument
+			this.editInstrumentForm.finalPrecisionTime = this.multipleSelection[0].finalPrecisionTime
+			this.editInstrumentForm.responseTime = this.multipleSelection[0].responseTime
+			this.editInstrumentForm.invalidTime = this.multipleSelection[0].invalidTime
+		},
+		async submitEdit() {
+			const { data: result } = await this.$http.post('/instrument/editInstrument', this.editInstrumentForm)
+
+			if (+result.code === 0) {
+				this.$message.success('介质编辑成功')
+			} else {
+				this.$message.error('介质编辑失败')
+			}
+			this.queryInstrument()
+			this.editInstrumentDialog = false
+		},
+		async deleteInstrument() {
+			if (this.multipleSelection.length === 0 ) {
+				this.$message.error('请勾选数据')
+				return
+			}
+			const { data: result } = await this.$http.post('/instrument/deleteInstrument', { deleteData: this.multipleSelection })
+
+			if (+result.code === 0) {
+				this.$message.success('介质删除成功')
+			} else {
+				this.$message.error('介质删除失败')
+			}
+
+			this.queryInstrument()
+		},
 		handleSizeChange(val){
             this.currentPage = 1
             this.pageSize = val
@@ -68,9 +192,13 @@ export default {
         },
       	handleSelectionChange(val) {
         	this.multipleSelection = val
-      	}
+      	},
+		dialogClose (form) { // 关闭对话框
+            this.$refs[`${form}Ref`].resetFields()
+        }
     },
     created() {
+		this.queryInstrument()
     }
 }
 </script>
