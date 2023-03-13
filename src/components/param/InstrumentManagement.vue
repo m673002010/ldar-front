@@ -46,19 +46,19 @@
             width="30%" @close="dialogClose('addInstrumentForm')">
             <el-form :model="addInstrumentForm" ref="addInstrumentFormRef" label-width="150px">
                 <el-form-item label="序列号" prop="serialNumber">
-                    <el-input v-model="addInstrumentForm.serialNumber" style="width: 180px"></el-input>
+                    <el-input v-model="addInstrumentForm.serialNumber" style="width: 200px"></el-input>
                 </el-form-item>
                 <el-form-item label="检测仪器名称" prop="testInstrument">
-                    <el-input v-model="addInstrumentForm.testInstrument" style="width: 180px"></el-input>
+                    <el-input v-model="addInstrumentForm.testInstrument" style="width: 200px"></el-input>
                 </el-form-item>
 				<el-form-item label="最后精密校准时间" prop="finalPrecisionTime" >
-					<el-date-picker v-model="addInstrumentForm.finalPrecisionTime" type="date" placeholder="选择日期" style="width: 180px"></el-date-picker>
+					<el-date-picker v-model="addInstrumentForm.finalPrecisionTime" type="datetime" placeholder="选择日期时间" style="width: 200px"></el-date-picker>
                 </el-form-item>
 				<el-form-item label="失效日期" prop="invalidTime" >
-					<el-date-picker v-model="addInstrumentForm.invalidTime" type="date" placeholder="选择日期" style="width: 180px"></el-date-picker>
+					<el-date-picker v-model="addInstrumentForm.invalidTime" type="datetime" placeholder="选择日期时间" style="width: 200px"></el-date-picker>
                 </el-form-item>
 				<el-form-item label="响应时间" prop="responseTime">
-                    <el-input v-model="addInstrumentForm.responseTime" style="width: 180px"></el-input>
+                    <el-input v-model="addInstrumentForm.responseTime" style="width: 200px"></el-input>
 					秒
                 </el-form-item>
             </el-form>
@@ -74,19 +74,19 @@
             width="30%" @close="dialogClose('editInstrumentForm')">
             <el-form :model="editInstrumentForm" ref="editInstrumentFormRef" label-width="150px">
                 <el-form-item label="序列号" prop="serialNumber">
-                    <el-input v-model="editInstrumentForm.serialNumber" disabled style="width: 180px"></el-input>
+                    <el-input v-model="editInstrumentForm.serialNumber" disabled style="width: 200px"></el-input>
                 </el-form-item>
                 <el-form-item label="检测仪器名称" prop="testInstrument">
-                    <el-input v-model="editInstrumentForm.testInstrument" style="width: 180px"></el-input>
+                    <el-input v-model="editInstrumentForm.testInstrument" style="width: 200px"></el-input>
                 </el-form-item>
 				<el-form-item label="最后精密校准时间" prop="finalPrecisionTime" >
-					<el-date-picker v-model="editInstrumentForm.finalPrecisionTime" type="date" placeholder="选择日期" style="width: 180px"></el-date-picker>
+					<el-date-picker v-model="editInstrumentForm.finalPrecisionTime" type="datetime" placeholder="选择日期时间" style="width: 200px"></el-date-picker>
                 </el-form-item>
 				<el-form-item label="失效日期" prop="invalidTime" >
-					<el-date-picker v-model="editInstrumentForm.invalidTime" type="date" placeholder="选择日期" style="width: 180px"></el-date-picker>
+					<el-date-picker v-model="editInstrumentForm.invalidTime" type="datetime" placeholder="选择日期时间" style="width: 200px"></el-date-picker>
                 </el-form-item>
 				<el-form-item label="响应时间" prop="responseTime">
-                    <el-input v-model="editInstrumentForm.responseTime" style="width: 180px"></el-input>
+                    <el-input v-model="editInstrumentForm.responseTime" style="width: 200px"></el-input>
 					秒
                 </el-form-item>
             </el-form>
@@ -132,7 +132,14 @@ export default {
     methods: {
 		async queryInstrument() {
 			const { data: result } = await this.$http.get('/instrument/queryInstrument', { params: this.instrumentManagementForm })
-			this.tableData = result.data
+			const tableData = result.data.map(v => {
+				v.finalPrecisionTime = this.$moment(v.finalPrecisionTime).format("YYYY-MM-DD HH:mm")
+				v.invalidTime = this.$moment(v.invalidTime).format("YYYY-MM-DD HH:mm")
+				v.createDate = this.$moment(v.createDate).format("YYYY-MM-DD HH:mm")
+				v.editDate = this.$moment(v.editDate).format("YYYY-MM-DD HH:mm")
+				return v
+			})
+			this.tableData = tableData
 		},
 		async submit() {
 			const { data: result } = await this.$http.post('/instrument/addInstrument', this.addInstrumentForm)

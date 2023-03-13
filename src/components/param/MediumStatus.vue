@@ -124,7 +124,13 @@ export default {
     methods: {
 		async queryMedium() {
 			const { data: result } = await this.$http.get('/medium/queryMedium', { params: this.mediumForm })
-			this.tableData = result.data
+
+			const tableData = result.data.map(v => {
+				v.createDate = this.$moment(v.createDate).format("YYYY-MM-DD HH:mm")
+				v.editDate = this.$moment(v.editDate).format("YYYY-MM-DD HH:mm")
+				return v
+			})
+			this.tableData = tableData
 		},
 		async submit() {
 			const { data: result } = await this.$http.post('/medium/addMedium', this.addMediumForm)

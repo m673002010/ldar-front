@@ -11,6 +11,9 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://175.178.8.213:3002'
 Vue.prototype.$http = axios
 
+import moment from "moment"
+Vue.prototype.$moment = moment
+
 // vuex
 import store from './store'
 

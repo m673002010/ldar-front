@@ -141,7 +141,12 @@ export default {
     methods: {
 		async queryComponentType() {
 			const { data: result } = await this.$http.get('/componentType/queryComponentType', { params: this.componentTypeForm })
-			this.tableData = result.data
+			const tableData = result.data.map(v => {
+				v.createDate = this.$moment(v.createDate).format("YYYY-MM-DD HH:mm")
+				v.editDate = this.$moment(v.editDate).format("YYYY-MM-DD HH:mm")
+				return v
+			})
+			this.tableData = tableData
 		},
 		async submit() {
 			const { data: result } = await this.$http.post('/componentType/addComponentType', this.addComponentTypeForm)
