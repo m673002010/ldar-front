@@ -46,7 +46,7 @@ import LeakIntervalAnalysis from '../components/report/LeakIntervalAnalysis.vue'
 // 基础参数
 import InstrumentManagement from '../components/param/InstrumentManagement.vue'
 import StandardGasManagement from '../components/param/StandardGasManagement.vue'
-import MeteorologyParameter from '../components/param/MeteorologyParameter.vue'
+import MeteorologyParam from '../components/param/MeteorologyParam.vue'
 import MediumStatus from '../components/param/MediumStatus.vue'
 import InstrumentDetectionStatistics from '../components/param/InstrumentDetectionStatistics.vue'
 import ComponentType from '../components/param/ComponentType.vue'
@@ -107,7 +107,7 @@ const routes = [
 			// 基础参数
 			{ path: '/instrumentManagement', component: InstrumentManagement, name: '仪器管理' },
 			{ path: '/standardGasManagement', component: StandardGasManagement, name: '标气管理' },
-			{ path: '/meteorologyParameter', component: MeteorologyParameter, name: '气象参数' },
+			{ path: '/meteorologyParam', component: MeteorologyParam, name: '气象参数' },
 			{ path: '/mediumStatus', component: MediumStatus, name: '介质状态' },
 			{ path: '/instrumentDetectionStatistics', component: InstrumentDetectionStatistics, name: '仪器检测统计' },
 			{ path: '/componentType', component: ComponentType, name: '组件类型' },
